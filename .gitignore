@@ -1,1 +1,6 @@
 cat_flask
+env
+*.pyc
+__pycache__
+.vscode
+.idea
