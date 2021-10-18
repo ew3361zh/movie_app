@@ -3,8 +3,9 @@ import os
 from pprint import pprint
 
 # order of operations:
-# 1. cd to directory path 
-# 2. source env/bin/activate to create virtual env
+# 1. cd to directory path
+# 2a. python3 -m venv env to create virtual env 
+# 2b. source env/bin/activate to switch into virtual env
 # 3. pip install requests (why doesn't import requests work here?)
 # 4. export OMDB_KEY=the top secret key
 # 5. python filename.py to run the file
