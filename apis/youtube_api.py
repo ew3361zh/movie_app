@@ -8,8 +8,9 @@ YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
 
 
-
-
+def main():
+    movie_title= input('Please enter movie title: ').upper()
+    print(movie_trailer(movie_title))
 
 def movie_trailer(movie):
 
@@ -36,5 +37,5 @@ def movie_trailer(movie):
         print(e)
 
 if __name__ == '__main__':
-    movie_title= input('Please enter movie title: ').upper()
-    print(movie_trailer(movie_title));
+    main()
+    
