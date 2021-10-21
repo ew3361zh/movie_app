@@ -10,8 +10,9 @@ def home_page():
 
 @app.route('/get-movie')
 def get_movie():
-    movie_titles = 0
-
+    movie_titles = tmdb.get_movie_titles()
+    movie_data = omdb.get_movie_data()
+    movie_trailer_id = youtube_api.movie_trailer()
 
 if __name__ == '__main__':
     app.run()
