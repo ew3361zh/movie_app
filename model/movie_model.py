@@ -12,7 +12,7 @@ class Movie():
                 genre,
                 rating,
                 plot_summary,
-                youtube_link):
+                youtube_id):
         self.title = title
         self.director = director
         self.release_date = release_date
@@ -22,7 +22,7 @@ class Movie():
         self.genre = genre
         self.rating = rating
         self.plot_summary = plot_summary
-        self.youtub_link = youtube_link
+        self.youtub_id = youtube_id
     
     def __str__(self):
-        return f'{self.title}, {self.director}, {self.release_date}, {self.actor_1}, {self.actor_2}, {self.poster_img}, {self.genre}, {self.rating}, {self.plot_summary}, {self.youtub_link}'
+        return f'{self.title}, {self.director}, {self.release_date}, {self.actor_1}, {self.actor_2}, {self.poster_img}, {self.genre}, {self.rating}, {self.plot_summary}, {self.youtub_id}'

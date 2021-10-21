@@ -20,7 +20,7 @@ class MovieDB():
                         genre TEXT,
                         rating TEXT,
                         plot_summary TEXT,
-                        youtube_link TEXT)"""
+                        youtube_id TEXT)"""
             )
         conn.close()
     
@@ -63,7 +63,7 @@ class MovieDB():
                             movie.genre,
                             movie.rating,
                             movie.plot_summary,
-                            movie.youtube_link))
+                            movie.youtube_id))
                 conn.close()
             except:
                 raise MovieError('Problem adding movie to db')
