@@ -12,6 +12,8 @@ def create_new_movie(omdb_data, youtube_video_id):
     # if this function is called, it means the secondary apis (OMDB and YouTube) have been called
     # which means the original title chosen by the user was checked in the db
     
+    # this seems to be the usual format for the actors field in the OMDB API response: "actor_1, actor_2, actor_3"
+    # TODO add validation/error handling to this part in case there's only one actor or zero actors listed
     actors = omdb_data['Actors']
     actors_list = actors.split(', ')
     actor_1 = actors_list[0]
@@ -29,6 +31,6 @@ def create_new_movie(omdb_data, youtube_video_id):
                     omdb_data['Plot'],
                     youtube_video_id)
     
-    add_movie_to_db(new_movie)
+    # TODO add add_movie_to_db(new_movie) in main immediately after this function returns the new_movie object
 
     return new_movie # if necessary, because data is coming from main.py already
