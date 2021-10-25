@@ -31,6 +31,8 @@ def create_new_movie(omdb_data, youtube_video_id):
                     omdb_data['Plot'],
                     youtube_video_id)
     
+    
+
     # TODO add add_movie_to_db(new_movie) in main immediately after this function returns the new_movie object
 
     return new_movie # if necessary, because data is coming from main.py already

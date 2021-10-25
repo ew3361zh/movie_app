@@ -31,7 +31,7 @@ class MovieDB():
                 results_query = conn.execute('SELECT * FROM movies WHERE title = ?', (title,))
                 results = results_query.fetchone()
                 if results == None:
-                    return None # or return False/True
+                    return None 
                 else:
                     requested_movie = Movie(results[0],
                                             results[1],
