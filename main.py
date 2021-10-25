@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect
 from apis import omdb, tmdb, youtube_api
 from database.movie_db import MovieDB
 from create_new_movie import create_new_movie
+from create_new_movie import movie_info_string
 
 app = Flask(__name__)
 movie_db = MovieDB() # create the DB
@@ -26,7 +27,7 @@ def get_movie():
         movie_trailer_id = youtube_api.movie_trailer(title)
         new_movie = create_new_movie(movie_data, movie_trailer_id)
         movie_db.add_movie_to_db(new_movie)
-        movie_info = ""
+        movie_info = movie_info_string(new_movie)
     else:
         movie_check.title
         # we'll have a movie object from the sql db

@@ -34,3 +34,7 @@ def create_new_movie(omdb_data, youtube_video_id):
     # TODO add add_movie_to_db(new_movie) in main immediately after this function returns the new_movie object
 
     return new_movie # if necessary, because data is coming from main.py already
+
+def movie_info_string(movie_object):
+    movie_info = f'Director: {movie_object[1]}\nReleased on: {movie_object[2]}\n Actors: {movie_object[3]}, {movie_object[4]}\nGenre: {movie_object[6]}\nRated: {movie_object[7]}\nPlot:{movie_object[8]}'
+    return movie_info
