@@ -21,23 +21,17 @@ def get_movie():
     title = request.args.get('title')
     print('title' + title)
     # check if movie in SQL db
-    # movie_check = movie_db.check_movie_in_db(title)
-    # if movie_check == None: # None only returned from line 22 if movie not in DB
-    #     movie_data = omdb.get_movie_data(title)
-    #     movie_trailer_id = youtube_api.movie_trailer(title)
-    #     new_movie = create_new_movie(movie_data, movie_trailer_id)
-    #     movie_db.add_movie_to_db(new_movie)
-    #     movie_info = movie_info_string(new_movie)
-    # else:
-    #     movie_check.title
+    movie_check = movie_db.check_movie_in_db(title)
+    if movie_check == None: # None only returned from line 22 if movie not in DB
+        movie_data = omdb.get_movie_data(title)
+        vid_title, vid_id = youtube_api.movie_trailer(title)
+        new_movie = create_new_movie(movie_data, vid_id)
+        movie_db.add_movie_to_db(new_movie)
+        movie_info = movie_info_string(new_movie)
+    else:
+        movie_check.title
         # we'll have a movie object from the sql db
-    movie_data = omdb.get_movie_data(title)
-    vid_title, vid_id = youtube_api.movie_trailer(title)
-    new_movie = create_new_movie(movie_data, vid_id)
-    # movie_db.add_movie_to_db(new_movie)
-    movie_info = movie_info_string(new_movie)
-    # print(movie_data, movie_trailer_id, new_movie, movie_info)
-    
+
 
     return render_template('movie.html', title=title, data=movie_info, poster=new_movie.poster_img, videoTitle=vid_title, videoID=vid_id)
 
