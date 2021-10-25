@@ -16,7 +16,7 @@ omdb_key = os.environ.get('OMDB_KEY')
 
 def get_movie_data():  
     try: 
-        movie_title = input('Please enter a movie title you would like more info on: ')
+        # movie_title = input('Please enter a movie title you would like more info on: ')
         omdb_url = f'http://www.omdbapi.com/?apikey={omdb_key}&t={movie_title}'
         movie_data = requests.get(omdb_url).json()
         pprint(movie_data)
@@ -24,4 +24,4 @@ def get_movie_data():
     except Exception as e:
         print('Can\'t fetch fact because', e)
 
-get_movie_data()
+# get_movie_data()
