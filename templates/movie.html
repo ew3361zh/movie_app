@@ -3,7 +3,7 @@
 
 {% block content %}
 
-# movie title should replace movie here
+
 <h1>Here is your movie information</h1>
 
 
@@ -14,7 +14,7 @@
 
 {% else %}
 
-<h2>Sorry, no cat image</h2>
+<h2>Sorry, no poster image</h2>
 
 {% endif %}
 
@@ -23,13 +23,13 @@
 
 {% if data %}
 
-<h2>Random Cat Fact</h2>
+<h2>Movie data</h2>
 
 <p>{{data}}</p>
 
 {% else %}
 
-<h2>Sorry, no cat fact</h2>
+<h2>Sorry, no movie fact</h2>
 
 {% endif %}
 
@@ -38,13 +38,13 @@
 
 {% if videoID %}
 
-<h2>{{ videoID }}</h2>
+<h2>{{ videoTitle }}</h2>
 
 <iframe width="420" height="315" src="https://www.youtube.com/embed/{{videoID}}"></iframe>
 
 {% else %} 
 
-<h2>Sorry, no movie video</h2>
+<h2>Sorry, no movie trailer</h2>
 
 {% endif %}
 

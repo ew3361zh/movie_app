@@ -12,7 +12,11 @@
         <li>{{movie}}</li>    
         {% endfor %}
     </ol>
-    <input>
+    <select name="title">
+        {% for movie in movieTitles %}
+        <option value="{{movie}}">{{movie}}</option>   
+        {% endfor %}
+    </select>
     <button type="submit" value="GO">Submit</button>
     
 </form>
