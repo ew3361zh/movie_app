@@ -22,13 +22,14 @@ class MovieDB():
                         plot_summary TEXT,
                         youtube_id TEXT)"""
             )
-        conn.close()
+        # conn.close()
     
     def check_movie_in_db(self, title):
         # check if movie title selected is already in db, return whole movie object if it is
         with sqlite3.connect(db) as conn:
             try:
-                results = conn.execute('SELECT * FROM movies WHERE title = ?', (title,))
+                results_query = conn.execute('SELECT * FROM movies WHERE title = ?', (title,))
+                results = results_query.fetchone()
                 if results == None:
                     return None # or return False/True
                 else:
@@ -64,7 +65,7 @@ class MovieDB():
                             movie.rating,
                             movie.plot_summary,
                             movie.youtube_id))
-                conn.close()
+                # conn.close()
             except:
                 raise MovieError('Problem adding movie to db')
 

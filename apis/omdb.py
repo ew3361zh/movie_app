@@ -23,3 +23,5 @@ def get_movie_data():
         return movie_data
     except Exception as e:
         print('Can\'t fetch fact because', e)
+
+get_movie_data()
