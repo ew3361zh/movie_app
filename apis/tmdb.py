@@ -24,6 +24,6 @@ def get_movie_titles():
             movie_titles.append(title)
 
         pprint(movie_titles)
-        return(movie_titles)
+        return movie_titles 
     except Exception as e:
         print('Can\'t fetch fact because', e)
