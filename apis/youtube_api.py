@@ -32,6 +32,7 @@ def movie_trailer(movie):
         video_id = first_result['id']['videoId']
 
         return { 'title': title, 'video_id': video_id }
+        
 
     except Exception as e:
         print(e)

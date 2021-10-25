@@ -7,7 +7,11 @@
 <h2>Enter a movie title:</h2>
 
 <form action="/get-movie" method="GET">
-
+    <ol>
+        {% for movie in movieTitles %}
+        <li>{{movie}}</li>    
+        {% endfor %}
+    </ol>
     <input>
     <button type="submit" value="GO">Submit</button>
     
