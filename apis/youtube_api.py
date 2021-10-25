@@ -28,10 +28,10 @@ def movie_trailer(movie):
 
         first_result = search_response.get('items', [])[0]
         
-        title = first_result['snippet']['title']
+        vid_title = first_result['snippet']['title']
         video_id = first_result['id']['videoId']
 
-        return { 'title': title, 'video_id': video_id }
+        return vid_title, video_id
         
 
     except Exception as e:
