@@ -42,9 +42,8 @@ class MovieDB():
                                             results[6],
                                             results[7],
                                             results[8],
-                                            results[9],
-                                            results[10]
-                                            ) # easier way to add row data to Movie object?
+                                            results[9]
+                                            )
                     return requested_movie
             except:
                 raise MovieError('Problem fetching movie from db')

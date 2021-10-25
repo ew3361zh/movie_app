@@ -9,17 +9,13 @@ movie_db = MovieDB() # create the DB
 
 @app.route('/')
 def home_page():
-    print('hi')
     movie_titles = tmdb.get_movie_titles()
-    
-    #print(movie_titles)
     return render_template('index.html', movieTitles = movie_titles)
 
 @app.route('/get-movie')
 def get_movie():
     
     title = request.args.get('title')
-    print('title' + title)
     # check if movie in SQL db
     movie_check = movie_db.check_movie_in_db(title)
     if movie_check == None: # None only returned from line 22 if movie not in DB
@@ -28,12 +24,14 @@ def get_movie():
         new_movie = create_new_movie(movie_data, vid_id)
         movie_db.add_movie_to_db(new_movie)
         movie_info = movie_info_string(new_movie)
+        return render_template('movie.html', title=title, data=movie_info, poster=new_movie.poster_img, videoTitle=vid_title, videoID=vid_id)
+
     else:
-        movie_check.title
+        print('Movie Object')
+        print(movie_check)
+        movie_info = movie_info_string(movie_check)
         # we'll have a movie object from the sql db
-
-
-    return render_template('movie.html', title=title, data=movie_info, poster=new_movie.poster_img, videoTitle=vid_title, videoID=vid_id)
+        return render_template('movie.html', title=title, data=movie_info, poster=movie_check.poster_img, videoTitle='db', videoID=movie_check.youtube_id)
 
 if __name__ == '__main__':
     app.run()
