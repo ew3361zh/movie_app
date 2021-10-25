@@ -30,8 +30,9 @@ def get_movie():
         print('Movie Object')
         print(movie_check)
         movie_info = movie_info_string(movie_check)
+        vid_title, vid_id = youtube_api.movie_trailer(title)
         # we'll have a movie object from the sql db
-        return render_template('movie.html', title=title, data=movie_info, poster=movie_check.poster_img, videoTitle='db', videoID=movie_check.youtube_id)
+        return render_template('movie.html', title=title, data=movie_info, poster=movie_check.poster_img, videoTitle=vid_title, videoID=movie_check.youtube_id)
 
 if __name__ == '__main__':
     app.run()
