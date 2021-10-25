@@ -4,7 +4,6 @@ from pprint import pprint
 
 """
 The Movie DB (https://www.themoviedb.org/?language=en-US) 
-API key: 0f6e4ae275505f59ad1f7ea5b93d5f6f
 """
 
 tmdb_key = os.environ.get('TMDB_KEY')
