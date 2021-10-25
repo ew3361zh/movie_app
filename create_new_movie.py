@@ -4,7 +4,7 @@
 
 from exceptions.movie_error import MovieError
 from model.movie_model import Movie
-from database.movie_db import movie_db
+# from database.movie_db import movie_db
 
 def create_new_movie(omdb_data, youtube_video_id):
     # TODO make sure this function is called in main and data is sent with a return object set up to get the new movie object
