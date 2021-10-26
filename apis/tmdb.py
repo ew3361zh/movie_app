@@ -20,8 +20,8 @@ def get_movie_titles():
         movie_data_dict = {}
         for movie in results:
             title = movie['title']
-            release_date = movie['release_date']
-            release_date_list = release_date.split('-')
+            release_date = movie['release_date'] # tmdb movie release dates come in format 'yyyy-mm-dd'
+            release_date_list = release_date.split('-') 
             release_year = release_date_list[0]
             movie_data_dict[title] = release_year
         # movie_titles = []
