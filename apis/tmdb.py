@@ -17,12 +17,19 @@ def get_movie_titles():
     try:
         movie_data = requests.get(tmdb_url).json()
         results = movie_data['results']
-        movie_titles = []
+        movie_data_dict = {}
         for movie in results:
             title = movie['title']
-            movie_titles.append(title)
+            release_date = movie['release_date']
+            release_date_list = release_date.split('-')
+            release_year = release_date_list[0]
+            movie_data_dict[title] = release_year
+        # movie_titles = []
+        # for movie in results:
+        #     title = movie['title']
+        #     movie_titles.append(title)
 
-        pprint(movie_titles)
-        return movie_titles
+        # pprint(movie_titles)
+        return movie_data_dict
     except Exception as e:
-        print('Can\'t fetch fact because', e)
+        print('Can\'t fetch movie titles because', e)
