@@ -22,6 +22,14 @@ class MovieDB():
                         plot_summary TEXT,
                         youtube_id TEXT)"""
             )
+        
+            conn.execute("""CREATE TABLE IF NOT EXISTS movies_cache (
+                        title TEXT NOT_NULL,
+                        release_year TEXT,
+                        tmdb_id TEXT NOT NULL,
+                        time_cached INTEGER NOT NULL)"""
+            )
+
         # conn.close()
     
     def check_movie_in_db(self, title):
