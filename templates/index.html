@@ -4,21 +4,18 @@
 
 <h1>Movie App</h1>
 
-<h2>Enter a movie title:</h2>
+<h2>Select a movie</h2>
 
-<form action="/get-movie" method="GET">
-    <ol>
-        {% for movie in movieTitles %}
-        <li>{{movie}}</li>    
-        {% endfor %}
-    </ol>
-    <select name="title">
-        {% for movie in movieTitles %}
-        <option value="{{movie}}">{{movie}}</option>   
-        {% endfor %}
-    </select>
-    <button type="submit" value="GO">Submit</button>
-    
-</form>
+<ol>
+    {% for movie in movies %}
+    <form action="/get-movie" method="GET">
+        <li>{{movie.title}}</li>
+        <input type="hidden" name="id" value="{{movie.tmdb_id}}">
+        <input type="hidden" name="year" value="{{movie.year}}">
+        <input type="hidden" name="title" value="{{movie.title}}">
+        <button type="submit">More Info</button>
+    </form>
+    {% endfor %}
+</ol>
 
 {% endblock %}
