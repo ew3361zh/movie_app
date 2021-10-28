@@ -3,7 +3,7 @@ from googleapiclient.errors import HttpError
 
 import os
 
-DEVELOPER_KEY = os.environ['YOUTUBE_API']
+DEVELOPER_KEY = ''
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
 
