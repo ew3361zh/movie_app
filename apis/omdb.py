@@ -10,7 +10,7 @@ from pprint import pprint
 # 4. export OMDB_KEY=the top secret key
 # 5. python filename.py to run the file
 
-omdb_key = os.environ.get('OMDB_KEY')
+omdb_key = ''
 
 
 

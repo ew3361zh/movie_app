@@ -5,6 +5,9 @@ from exceptions.movie_error import MovieError
 
 db = db_path
 
+#  restructure into favorites 
+
+
 class MovieDB():
     
     def __init__(self):
@@ -24,6 +27,11 @@ class MovieDB():
             )
         # conn.close()
     
+
+    def get_favorites():
+        pass 
+
+
     def check_movie_in_db(self, title):
         # check if movie title selected is already in db, return whole movie object if it is
         with sqlite3.connect(db) as conn:
@@ -54,6 +62,7 @@ class MovieDB():
         with sqlite3.connect(db) as conn:
             try:
                 conn.execute(f'INSERT INTO movies VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                # include tmdb id to avoid duplicate 
                             (movie.title,
                             movie.director,
                             movie.release_date,
