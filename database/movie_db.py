@@ -33,6 +33,7 @@ class MovieDB():
         # conn.close()
     
     def check_cache_for_movie_list(self):
+
         current_time = datetime.now().timestamp()
         with sqlite3.connect(db) as conn:
             try:
@@ -46,8 +47,38 @@ class MovieDB():
                     return movies_list 
             except:
                 raise MovieError('Problem fetching cached movies list from db')    
-                    
 
+                    
+    def add_movie_list(self, movie_list):
+        current_time = datetime.now().timestamp()
+        with sqlite3.connect(db) as conn:
+            try:
+                for movie in movies_list:
+                    conn.execute(f'INSERT INTO movies_cache VALUES(?, ?, ?, ?)',
+                                (movie.id, movie.title, movie.year, current_time)) # check if same as Abdi's key names in movie_list objects
+            except:
+                raise MovieError('Problem adding movie list to cache db')
+
+    # add movie
+    def add_movie_to_db(self, movie):
+        # add a movie to the db assuming it's not in db (title field is unique)
+        # TODO write test to make sure it's not adding a movie that's already in the DB
+        with sqlite3.connect(db) as conn:
+            try:
+                conn.execute(f'INSERT INTO movies VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                            (movie.title,
+                            movie.director,
+                            movie.release_date,
+                            movie.actor_1,
+                            movie.actor_2,
+                            movie.poster_img,
+                            movie.genre,
+                            movie.rating,
+                            movie.plot_summary,
+                            movie.youtube_id))
+                # conn.close()
+            except:
+                raise MovieError('Problem adding movie to db')
     
     def check_movie_in_db(self, title):
         # check if movie title selected is already in db, return whole movie object if it is
@@ -72,24 +103,4 @@ class MovieDB():
                     return requested_movie
             except:
                 raise MovieError('Problem fetching movie from db')
-    # add movie
-    def add_movie_to_db(self, movie):
-        # add a movie to the db assuming it's not in db (title field is unique)
-        # TODO write test to make sure it's not adding a movie that's already in the DB
-        with sqlite3.connect(db) as conn:
-            try:
-                conn.execute(f'INSERT INTO movies VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                            (movie.title,
-                            movie.director,
-                            movie.release_date,
-                            movie.actor_1,
-                            movie.actor_2,
-                            movie.poster_img,
-                            movie.genre,
-                            movie.rating,
-                            movie.plot_summary,
-                            movie.youtube_id))
-                # conn.close()
-            except:
-                raise MovieError('Problem adding movie to db')
 
