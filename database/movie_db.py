@@ -32,6 +32,23 @@ class MovieDB():
 
         # conn.close()
     
+    def check_cache_for_movie_list(self):
+        current_time = datetime.now().timestamp()
+        with sqlite3.connect(db) as conn:
+            try:
+                results_query = conn.execute('SELECT * FROM movies_cache LIMIT 1')
+                cached_time = results_query.fetchone()[3]
+                if current_time - cached_time > 30:
+                    return None # made up amount of seconds for testing if this works
+                else:
+                    results_query = conn.execute('SELECT * FROM movies_cache')
+                    movies_list = results_query.fetchall()
+                    return movies_list 
+            except:
+                raise MovieError('Problem fetching cached movies list from db')    
+                    
+
+    
     def check_movie_in_db(self, title):
         # check if movie title selected is already in db, return whole movie object if it is
         with sqlite3.connect(db) as conn:
