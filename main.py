@@ -41,6 +41,7 @@ def add_movie_to_fav_db():
 def show_movie_from_fav_db():
     tmdb_id = request.args.get('tmdb_id')
     # using id, get movie details from db
-    render_template()
+    new_movie_call = False
+    render_template('', newMovie = new_movie_call)
 if __name__ == '__main__':
     app.run()
