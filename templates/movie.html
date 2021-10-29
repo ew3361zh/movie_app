@@ -48,5 +48,13 @@
 
 {% endif %}
 
-
+<!-- {if } -->
+{% if videoID and poster and data  %}
+<form action="/show-favs" method="GET">
+    <input type="hidden" name="id" value="{{movie.tmdb_id}}">
+    <input type="hidden" name="year" value="{{movie.year}}">
+    <input type="hidden" name="title" value="{{movie.title}}">
+    <button type="submit">Add to favorites</button>
+</form>
+{% endif %}
 {% endblock %}
