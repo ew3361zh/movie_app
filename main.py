@@ -23,7 +23,7 @@ def get_movie():
     return render_template('movie.html', title=title, data=movie_details, poster=movie_details, videoTitle=vid_title, videoID=vid_id)
 
 
-@app.route('/show-favs')
+@app.route('/add-to-favs')
 def show_favs():
     title = request.args.get('title')
     poster = request.args.get('poster')

@@ -50,7 +50,7 @@
 
 <!-- {{poster}} {{data}} {{ videoTitle }} videoID-->
 {% if videoID and poster and data  %}
-<form action="/show-favs" method="GET">
+<form action="/add-to-favs" method="GET">
     <input type="hidden" name="title" value="{{title}}">
     <input type="hidden" name="poster" value="{{poster}}">
     <input type="hidden" name="data" value="{{data}}">

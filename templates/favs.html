@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Favorite Movies</h1>
+
+<ol>
+    {% for movie in favMovieList %}
+    <form action="/show-fav-movie" method="GET">
+        <li>{{movie.title}}</li>
+        <input type="hidden" name="id" value="{{movie.tmdb_id}}">
+        <button type="submit">More Info</button>
+    </form>
+    {% endfor %}
+</ol>
+
+{% endblock %}
