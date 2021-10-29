@@ -22,19 +22,30 @@ class FavoritesDB():
                         rating TEXT,
                         plot_summary TEXT,
                         youtube_id TEXT)"""
-            )
+                        )
 
         # conn.close()    
 
-    # TODO write return all favorites function
 
-    # add movie
+    # fetch all favorite movies from db
+    def get_all_favorites(self):
+
+        with sqlite3.connect(db) as conn:
+            try:
+                conn.row_factory = sqlite3.Row
+                results_query = conn.execute(f'SELECT * FROM favorites')
+                all_favorites = results_query.fetchall()
+                return all_favorites
+            except:
+                raise MovieError('Problem fetching all favorites')
+
+    # add movie to favorites db
     def add_favorite(self, movie):
         # TODO make sure movie object sent here is getting tmdb_id
         # TODO write test to make sure it's not adding a movie that's already in the DB
         with sqlite3.connect(db) as conn:
             try:
-                conn.execute(f'INSERT INTO movies VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                             (movie.tmdb_id,
                             movie.title,
                             movie.director,
@@ -48,13 +59,14 @@ class FavoritesDB():
                             movie.youtube_id))
                 # conn.close()
             except:
-                raise MovieError('Problem adding movie to db')
+                raise MovieError('Problem adding favorite to db')
     
     def check_movie_in_db(self, title):
         # check if movie title selected is already in db, return whole movie object if it is
         with sqlite3.connect(db) as conn:
             try:
-                results_query = conn.execute('SELECT * FROM movies WHERE title = ?', (title,))
+                conn.row_factory = sqlite3.Row
+                results_query = conn.execute('SELECT * FROM favorites WHERE title = ?', (title,))
                 results = results_query.fetchone()
                 if results == None:
                     return None # or return False/True
