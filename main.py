@@ -9,9 +9,15 @@ movie_db = MovieDB() # create the DB
 
 @app.route('/')
 def home_page():
-    movie_dict = tmdb.get_movie_titles()
-    movie_titles = list(movie_dict.keys())
-    return render_template('index.html', movieTitles = movie_titles)
+    # get data from api, or cache and return data or none/error
+    movie_dict, error= tmdb.get_movie_titles()
+
+    if movie_dict:
+        movie_list=list(movie_dict['title'])
+    else:
+        # an error html?????????????????????????????
+        movie_list='an error has occured'
+    return render_template('index.html', movieTitles = movie_list)
 
 @app.route('/get-movie')
 def get_movie():
