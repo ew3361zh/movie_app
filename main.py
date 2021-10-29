@@ -12,6 +12,7 @@ def home_page():
     movies = tmdb.get_movie_titles()
     return render_template('index.html', movies = movies)
 
+
 @app.route('/get-movie')
 def get_movie():
     title = request.args.get('title')
@@ -31,7 +32,7 @@ def add_movie_to_fav_db():
     movie_data = request.args.get('data')
     trailer_title = request.args.get('videoTitle')
     video_id = request.args.get('videoID')
-    # using this data, add the movie to favs
+    # using this data, add the movie to favs db
     # get the favorites list
     favorite_movie_list = []
     # send user to favs.html
