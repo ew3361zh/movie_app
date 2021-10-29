@@ -43,23 +43,29 @@ class FavoritesDB():
     def add_favorite(self, movie):
         # TODO make sure movie object sent here is getting tmdb_id
         # TODO write test to make sure it's not adding a movie that's already in the DB
-        with sqlite3.connect(db) as conn:
-            try:
-                conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                            (movie.tmdb_id,
-                            movie.title,
-                            movie.director,
-                            movie.release_date,
-                            movie.actor_1,
-                            movie.actor_2,
-                            movie.poster_img,
-                            movie.genre,
-                            movie.rating,
-                            movie.plot_summary,
-                            movie.youtube_id))
-                # conn.close()
-            except:
-                raise MovieError('Problem adding favorite to db')
+        check_movie = check_movie_in_db(movie.title)
+        if check_movie == None: 
+            with sqlite3.connect(db) as conn:
+                try:
+                    conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                (movie.tmdb_id,
+                                movie.title,
+                                movie.director,
+                                movie.release_date,
+                                movie.actor_1,
+                                movie.actor_2,
+                                movie.poster_img,
+                                movie.genre,
+                                movie.rating,
+                                movie.plot_summary,
+                                movie.youtube_id))
+                    return True
+                except:
+                    raise MovieError('Problem adding favorite to db')
+        else:
+            return False
+    
+    #TODO delete favorite from DB function
     
     def check_movie_in_db(self, title):
         # check if movie title selected is already in db, return whole movie object if it is
