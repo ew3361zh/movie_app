@@ -23,6 +23,11 @@ def get_movie():
     return render_template('movie.html', title=title, data=movie_details, poster=movie_details, videoTitle=vid_title, videoID=vid_id)
 
 # TODO - favorites route
+@app.route('/show-favs')
+def show_favs():
+    title = request.args.get('title')
+    year = request.args.get('year')
+    tmdb_id = request.args.get('tmdb_id')
 
 if __name__ == '__main__':
     app.run()
