@@ -17,6 +17,7 @@ def get_movie_titles():
     try:
         movie_data = requests.get(tmdb_url).json()
         results = movie_data['results']
+        # pprint(results)
         movie_data_dict = {}
         for movie in results:
             title = movie['title']
