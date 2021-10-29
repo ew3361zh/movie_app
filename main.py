@@ -26,8 +26,10 @@ def get_movie():
 @app.route('/show-favs')
 def show_favs():
     title = request.args.get('title')
-    year = request.args.get('year')
-    tmdb_id = request.args.get('tmdb_id')
-
+    poster = request.args.get('poster')
+    movie_data = request.args.get('data')
+    trailer_title = request.args.get('videoTitle')
+    video_id = request.args.get('videoID')
+    return render_template('', title=title, data=movie_data, poster=poster, videoTitle=trailer_title, videoID=video_id)
 if __name__ == '__main__':
     app.run()
