@@ -22,7 +22,7 @@ def get_movie():
     # we need movie_info and poster
     return render_template('movie.html', title=title, data=movie_details, poster=movie_details, videoTitle=vid_title, videoID=vid_id)
 
-# TODO - favorites route
+
 @app.route('/show-favs')
 def show_favs():
     title = request.args.get('title')
@@ -30,6 +30,10 @@ def show_favs():
     movie_data = request.args.get('data')
     trailer_title = request.args.get('videoTitle')
     video_id = request.args.get('videoID')
-    return render_template('', title=title, data=movie_data, poster=poster, videoTitle=trailer_title, videoID=video_id)
+    # using this data, add the movie to favs
+    # get the favorites list
+    favorite_movie_list = []
+    # send user to favs.html
+    return render_template('favs.html', favMovieList = favorite_movie_list)
 if __name__ == '__main__':
     app.run()
