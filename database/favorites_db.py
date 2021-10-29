@@ -43,7 +43,7 @@ class FavoritesDB():
     def add_favorite(self, movie):
         # TODO make sure movie object sent here is getting tmdb_id
         # TODO write test to make sure it's not adding a movie that's already in the DB
-        check_movie = check_movie_in_db(movie.title)
+        check_movie = check_movie_in_db(movie.tmdb_id)
         if check_movie == None: 
             with sqlite3.connect(db) as conn:
                 try:
@@ -67,12 +67,12 @@ class FavoritesDB():
     
     #TODO delete favorite from DB function
     
-    def check_movie_in_db(self, title):
+    def check_movie_in_db(self, tmdb_id):
         # check if movie title selected is already in db, return whole movie object if it is
         with sqlite3.connect(db) as conn:
             try:
                 conn.row_factory = sqlite3.Row
-                results_query = conn.execute('SELECT * FROM favorites WHERE title = ?', (title,))
+                results_query = conn.execute('SELECT * FROM favorites WHERE tmdb_id = ?', (tmdb_id,))
                 results = results_query.fetchone()
                 if results == None:
                     return None # or return False/True

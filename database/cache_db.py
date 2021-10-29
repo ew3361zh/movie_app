@@ -32,7 +32,7 @@ class CacheDB():
                 else:
                     results_query = conn.execute('SELECT * FROM movies_cache')
                     movies_list = results_query.fetchall() # need to check what this returns
-                    return movies_list 
+                    return movies_list, None 
             except:
                 raise MovieError('Problem fetching cached movies list from db')
     
