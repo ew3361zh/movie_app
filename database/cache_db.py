@@ -17,7 +17,7 @@ class CacheDB():
                         )
 
     def check_cache(self):
-
+        # function checks current time, gets time-cached from DB, makes assessment based on MAX_AGE_SECONDS variable on whether data is fresh enough
         current_time = datetime.now().timestamp()
         with sqlite3.connect(db) as conn:
             try:

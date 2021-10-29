@@ -11,7 +11,7 @@ class FavoritesDB():
         #create table function
         with sqlite3.connect(db) as conn:
             conn.execute("""CREATE TABLE IF NOT EXISTS favorites (
-                        tmdb_id TEXT NOT NULL, 
+                        tmdb_id TEXT NOT NULL UNIQUE, 
                         title TEXT NOT_NULL,
                         director TEXT,
                         release_date TEXT,
