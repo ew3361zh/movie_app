@@ -1,6 +1,7 @@
 import sqlite3
-from .config import db_path
-from exceptions.movie_error import MovieError
+from config import db_path
+from datetime import datetime, date, time
+from movie_error import MovieError # import not working
 
 db = db_path
 MAX_AGE_SECONDS = 30 # tbd actual time we should use
@@ -41,7 +42,7 @@ class CacheDB():
         with sqlite3.connect(db) as conn:
             try:
                 conn.execute('DELETE FROM movies_cache') # just to be safe, deleting previous cache. Ideally only want this to be called after data has been proven too old or doesn't exist in table yet
-                for movie in movies_list:
+                for movie in movie_list:
                     conn.execute(f'INSERT INTO movies_cache VALUES(?, ?, ?, ?)',
                                 (movie.id, movie.title, movie.year, current_time)) # check if same as Abdi's key names in movie_list objects
             except:
