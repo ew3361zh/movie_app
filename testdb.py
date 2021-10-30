@@ -29,30 +29,45 @@ class TestCacheDatbase(TestCase):
         conn.close()
 
         self.db = cache_db.CacheDB()
-    
-    def test_check_cache_expired(self):
-        pass
 
     def test_add_movie_list_cache_adds_list(self):
-        test_movie_1 = {'title':'First Movie', 'release_year':'2020', 'tmdb_id':123456}
+        test_movie_1 = [{'title':'First Movie', 'release_year':'2020', 'tmdb_id':123456}]
         self.db.add_movie_list_cache(test_movie_1)
-        expected = {'title':'First Movie', 'release_year':'2020', 'tmdb_id':123456}
+        expected = [{'title':'First Movie', 'release_year':'2020', 'tmdb_id':123456}]
         self.compare_db_to_expected(expected)
         
-        test_movie_2 = {'title':'Second Movie', 'release_year':'1990', 'tmdb_id':654321}
+        test_movie_2 = [{'title':'Second Movie', 'release_year':'1990', 'tmdb_id':654321}]
         self.db.add_movie_list_cache(test_movie_2)
-        expected = {'title':'Second Movie', 'release_year':'1990', 'tmdb_id':654321, 'time_cached':datetime.now().timestamp() }
+        expected = [{'title':'Second Movie', 'release_year':'1990', 'tmdb_id':654321, 'time_cached':datetime.now().timestamp()}]
         self.compare_db_to_expected(expected)
 
     def test_add_movie_not_add_duplicate(self):
-        test_movie = {'title':'Unique Movie', 'release_year':'2020', 'tmdb_id':987654}
+        test_movie = [{'title':'Unique Movie', 'release_year':'2020', 'tmdb_id':987654}]
         self.db.add_movie_list_cache(test_movie)
-        expected = {'title':'Unique Movie', 'release_year':'2020', 'tmdb_id':987654, 'time_cached':datetime.now().timestamp() }
+        expected = [{'title':'Unique Movie', 'release_year':'2020', 'tmdb_id':987654, 'time_cached':datetime.now().timestamp()}]
         self.compare_db_to_expected(expected)
 
         with self.assertRaises(MovieError):
-            test_movie_2 = {'title':'Duplicate Movie', 'release_year':'2020', 'tmdb_id':987654}
+            test_movie_2 = [{'title':'Duplicate Movie', 'release_year':'2020', 'tmdb_id':987654}]
             self.db.add_movie_list_cache(test_movie_2)
+
+    def test_check_cache_expired_clears_cache_returns_none(self):
+        test_movie = ]{'title':'Clear Movie', 'release_year':'2010', 'tmdb_id':345678}]
+        self.db.add_movie_list_cache(test_movie)
+        time.sleep(cache_db.MAX_AGE_SECONDS + 10) # pause program from initial add for amount of time greater than MAX_AGE_SECONDS variable
+        self.db.check_cache() # need to figure out what to test. Maybe that it returns None?
+        # use helper method to query db and return what should be None because cache was cleared
+        expected = {}
+        self.compare_db_to_expected(expected)
+        # may need to add single movie after this and we should only get that movie, or maybe readd the movie from the 
+        # first line of the function and we should not get an error back
+
+    def test_check_cache_returns_movies_list(self):
+        test_movies = [{'title':'Cache Movie', 'release_year':'2012', 'tmdb_id':234567},
+                        {'title':'Cache Movie 2', 'release_year':'2015', 'tmdb_id':345867}]
+        self.db.add_movie_list_cache(test_movies)
+        checked_cache_test = self.db.check_cache()
+        compare_db_to_expected(checked_cache_test)
 
     def compare_db_to_expected(self, expected):
 
