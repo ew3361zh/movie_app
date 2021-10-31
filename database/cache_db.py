@@ -1,6 +1,7 @@
 import sqlite3
-from .config import db_path
-from exceptions.movie_error import MovieError
+from config import db_path
+from datetime import datetime, date, time
+# from exceptions import movie_error # import not working
 
 db = db_path
 MAX_AGE_SECONDS = 30 # tbd actual time we should use
@@ -34,15 +35,17 @@ class CacheDB():
                     movies_list = results_query.fetchall() # need to check what this returns
                     return movies_list, None 
             except:
-                raise MovieError('Problem fetching cached movies list from db')
+                # raise MovieError('Problem fetching cached movies list from db')
+                pass
     
     def add_movie_list_cache(self, movie_list):
         current_time = datetime.now().timestamp()
         with sqlite3.connect(db) as conn:
             try:
                 conn.execute('DELETE FROM movies_cache') # just to be safe, deleting previous cache. Ideally only want this to be called after data has been proven too old or doesn't exist in table yet
-                for movie in movies_list:
+                for movie in movie_list:
                     conn.execute(f'INSERT INTO movies_cache VALUES(?, ?, ?, ?)',
                                 (movie.id, movie.title, movie.year, current_time)) # check if same as Abdi's key names in movie_list objects
             except:
-                raise MovieError('Problem adding movie list to cache db')
+                pass
+                # raise MovieError('Problem adding movie list to cache db')
