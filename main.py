@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect
 from apis import omdb, tmdb, youtube_api
-from database.favorites_db import FavoritesDB
-from database.cache_db import CacheDB
+from favorites_db import FavoritesDB
+from cache_db import CacheDB
 from create_new_movie import create_new_movie
 from create_new_movie import movie_info_string
 

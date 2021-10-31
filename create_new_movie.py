@@ -3,7 +3,7 @@
 # send new movie object to movie_db add_new_movie function
 
 from exceptions.movie_error import MovieError
-from model.movie_model import Movie
+from model.movie_model import Favorite
 # from database.movie_db import movie_db
 
 def create_new_movie(omdb_data, youtube_video_id):
@@ -20,7 +20,7 @@ def create_new_movie(omdb_data, youtube_video_id):
     actor_2 = actors_list[1]
 
     
-    new_movie = Movie(omdb_data['Title'],
+    new_movie = Favorite(omdb_data['Title'],
                     omdb_data['Director'],
                     omdb_data['Released'],
                     actor_1,

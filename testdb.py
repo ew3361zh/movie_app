@@ -3,7 +3,7 @@ import unittest
 from unittest import TestCase 
 import cache_db
 from datetime import datetime, date, time
-from movie_error import MovieError
+from exceptions.movie_error import MovieError
 
 
 class TestCacheDatbase(TestCase):
