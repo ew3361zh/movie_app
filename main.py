@@ -1,11 +1,12 @@
 from flask import Flask, request, render_template, redirect
 from apis import omdb, tmdb, youtube_api
-from database.movie_db import MovieDB
+from database.favorites_db import FavoritesDB
+from database.cached_db import CacheDB
 from create_new_movie import create_new_movie
 from create_new_movie import movie_info_string
 
 app = Flask(__name__)
-movie_db = MovieDB() # create the DB
+movie_db = FavoritesDB() # create the DB
 
 @app.route('/')
 def home_page():

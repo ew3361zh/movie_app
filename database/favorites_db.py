@@ -1,5 +1,6 @@
 import sqlite3
 from config import db_path
+from model.movie_model import Favorite
 from exceptions.movie_error import MovieError
 # from models.movie_model import Favorite # import later
 
@@ -37,7 +38,7 @@ class FavoritesDB():
                 all_favorites = results_query.fetchall()
                 return all_favorites
             except:
-                raise movie_error.MovieError('Problem fetching all favorites')
+                raise MovieError('Problem fetching all favorites')
 
     # add movie to favorites db
     def add_favorite(self, movie):

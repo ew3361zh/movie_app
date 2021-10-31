@@ -1,5 +1,7 @@
 import requests
 import os
+
+from database.cached_db import CacheDB
 from pprint import pprint
 
 """
@@ -15,21 +17,48 @@ tmdb_url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=0f6e4ae275505
 """ This function will return a list movies from the api """
 def get_movie_titles():
     try:
-        movie_data = requests.get(tmdb_url).json()
-        results = movie_data['results']
-        movie_data_dict = {}
-        for movie in results:
-            title = movie['title']
-            release_date = movie['release_date'] # tmdb movie release dates come in format 'yyyy-mm-dd'
-            release_date_list = release_date.split('-') 
-            release_year = release_date_list[0]
-            movie_data_dict[title] = release_year
-        # movie_titles = []
-        # for movie in results:
-        #     title = movie['title']
-        #     movie_titles.append(title)
+        # movies, None = CacheDB.check_cache() having None was erroring
+        movies = CacheDB.check_cache()
+        if movies:
+            return movies
+        else:
+            # movie_json, None = get_movie_from_api() None erroring, replaced with error as second return value
+            movie_json = get_movie_from_api()
 
-        # pprint(movie_titles)
-        return movie_data_dict
+            if movie_json:
+                movie_list = add_titles_to_list(movie_json)
+
+                #store it in cache
+                CacheDB.add_movie_list(movie_list)
+                return movie_list
+            else:
+                pass
+
+
     except Exception as e:
-        print('Can\'t fetch movie titles because', e)
+        return None, 'Error connecting to TMBD API because' + str(e)
+
+
+def get_movie_from_api():
+    try:
+        movie_data = requests.get(tmdb_url).json()
+        return movie_data, None
+    except Exception as e:
+        return None, 'Error connecting to TMBD API because' + str(e)
+
+
+def add_titles_to_list(movie_data):
+    results = movie_data['results']
+    movie_list =[]
+
+    for movie in results:
+        title=movie['title']
+        release_date = movie['release_date'] # tmdb movie release dates come in format 'yyyy-mm-dd'
+        release_date_list = release_date.split('-') 
+        release_year = release_date_list[0]
+        tmdb_id = movie['id']
+
+        movie_list.append({'title': title, 'year': release_year, 'id': tmdb_id})
+
+
+    return movie_list
