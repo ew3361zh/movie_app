@@ -1,7 +1,7 @@
 import sqlite3
 from config import db_path
 from datetime import datetime, date, time
-from movie_error import MovieError # import not working
+from exceptions.movie_error import MovieError # import not working
 
 db = db_path
 MAX_AGE_SECONDS = 30 # tbd actual time we should use

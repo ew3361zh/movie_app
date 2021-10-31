@@ -1,6 +1,6 @@
 import sqlite3
-from .config import db_path
-from model.movie_model import Favorite
+from config import db_path
+from models.movie_model import Favorite
 from exceptions.movie_error import MovieError
 
 db = db_path
@@ -43,7 +43,7 @@ class FavoritesDB():
     def add_favorite(self, movie):
         # TODO make sure movie object sent here is getting tmdb_id
         # TODO write test to make sure it's not adding a movie that's already in the DB
-        check_movie = check_movie_in_db(movie.tmdb_id)
+        check_movie = self.check_movie_in_db(movie.tmdb_id)
         if check_movie == None: 
             with sqlite3.connect(db) as conn:
                 try:
@@ -77,7 +77,7 @@ class FavoritesDB():
                 if results == None:
                     return None # or return False/True
                 else:
-                    requested_movie = Movie(results[0],
+                    requested_movie = Favorite(results[0],
                                             results[1],
                                             results[2],
                                             results[3],
@@ -86,7 +86,8 @@ class FavoritesDB():
                                             results[6],
                                             results[7],
                                             results[8],
-                                            results[9]
+                                            results[9],
+                                            results[10]
                                             )
                     return requested_movie
             except:

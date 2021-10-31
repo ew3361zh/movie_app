@@ -52,7 +52,7 @@ class TestCacheDatbase(TestCase):
             self.db.add_movie_list_cache(test_movie_2)
 
     def test_check_cache_expired_clears_cache_returns_none(self):
-        test_movie = ]{'title':'Clear Movie', 'release_year':'2010', 'tmdb_id':345678}]
+        test_movie = [{'title':'Clear Movie', 'release_year':'2010', 'tmdb_id':345678}]
         self.db.add_movie_list_cache(test_movie)
         time.sleep(cache_db.MAX_AGE_SECONDS + 10) # pause program from initial add for amount of time greater than MAX_AGE_SECONDS variable
         self.db.check_cache() # need to figure out what to test. Maybe that it returns None?
@@ -63,8 +63,8 @@ class TestCacheDatbase(TestCase):
         # first line of the function and we should not get an error back
 
     def test_check_cache_returns_movies_list(self):
-        test_movies = [{'title':'Cache Movie', 'release_year':'2012', 'tmdb_id':234567},
-                        {'title':'Cache Movie 2', 'release_year':'2015', 'tmdb_id':345867}]
+        test_movies = [{'title':'Cache Movie', 'release_year':'2012', 'tmdb_id':234567}],
+                        [{'title':'Cache Movie 2', 'release_year':'2015', 'tmdb_id':345867}]
         self.db.add_movie_list_cache(test_movies)
         checked_cache_test = self.db.check_cache()
         compare_db_to_expected(checked_cache_test)
