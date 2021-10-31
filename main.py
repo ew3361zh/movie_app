@@ -1,11 +1,13 @@
 from flask import Flask, request, render_template, redirect
 from apis import omdb, tmdb, youtube_api
-from database.movie_db import MovieDB
+from database.favorites_db import FavoritesDB
+from database.cached_db import CacheDB
 from create_new_movie import create_new_movie
 from create_new_movie import movie_info_string
 
 app = Flask(__name__)
-movie_db = MovieDB() # create the DB
+favorites_db = FavoritesDB() # create favorites db
+movie_cache_db = CacheDB() # create cache db
 
 @app.route('/')
 def home_page():
@@ -20,9 +22,11 @@ def get_movie():
     tmdb_id = request.args.get('tmdb_id')
     movie_details = omdb.get_movie_data(title, year)
     vid_title, vid_id = youtube_api.movie_trailer(title)
+    new_movie = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
+    movie_details_for_display = movie_info_string(new_movie)
     new_movie_call = True
     # we need movie_info and poster
-    return render_template('movie.html', title=title, data=movie_details, poster=movie_details, videoTitle=vid_title, videoID=vid_id, newMovie = new_movie_call)
+    return render_template('movie.html', title=title, data=movie_details_for_display, poster=new_movie.poster_img, videoTitle=vid_title, videoID=vid_id, newMovie = new_movie_call)
 
 
 @app.route('/add-to-favs')
