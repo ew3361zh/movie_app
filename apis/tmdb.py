@@ -29,7 +29,7 @@ def get_movie_titles():
                 movie_list = add_titles_to_list(movie_json)
 
                 #store it in cache
-                CacheDB.add_movie_list(movie_list)
+                CacheDB.add_movie_list_cache(movie_list)
                 return movie_list
             else:
                 pass
