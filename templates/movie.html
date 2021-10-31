@@ -48,5 +48,15 @@
 
 {% endif %}
 
-
+<!-- {{poster}} {{data}} {{ videoTitle }} videoID-->
+{% if videoID and poster and data and newMovie %}
+<form action="/add-to-favs" method="GET">
+    <input type="hidden" name="title" value="{{title}}">
+    <input type="hidden" name="poster" value="{{poster}}">
+    <input type="hidden" name="data" value="{{data}}">
+    <input type="hidden" name="videoTitle" value="{{videoTitle}}">
+    <input type="hidden" name="videoID" value="{{videoID}}">
+    <button type="submit">Add to favorites</button>
+</form>
+{% endif %}
 {% endblock %}

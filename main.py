@@ -12,6 +12,7 @@ def home_page():
     movies = tmdb.get_movie_titles()
     return render_template('index.html', movies = movies)
 
+
 @app.route('/get-movie')
 def get_movie():
     title = request.args.get('title')
@@ -19,10 +20,34 @@ def get_movie():
     tmdb_id = request.args.get('tmdb_id')
     movie_details = omdb.get_movie_data(title, year)
     vid_title, vid_id = youtube_api.movie_trailer(title)
+    new_movie_call = True
     # we need movie_info and poster
-    return render_template('movie.html', title=title, data=movie_details, poster=movie_details, videoTitle=vid_title, videoID=vid_id)
+    return render_template('movie.html', title=title, data=movie_details, poster=movie_details, videoTitle=vid_title, videoID=vid_id, newMovie = new_movie_call)
 
-# TODO - favorites route
 
+@app.route('/add-to-favs')
+def add_movie_to_fav_db():
+    title = request.args.get('title')
+    poster = request.args.get('poster')
+    movie_data = request.args.get('data')
+    trailer_title = request.args.get('videoTitle')
+    video_id = request.args.get('videoID')
+    # using this data, add the movie to favs db
+    # get the favorites list
+    favorite_movie_list = []
+    # send user to favs.html
+    return render_template('favs.html', favMovieList = favorite_movie_list)
+
+@app.route('/show-fav-movie')
+def show_movie_from_fav_db():
+    tmdb_id = request.args.get('tmdb_id')
+    # using id, get movie details from db
+    title = 'get from db'
+    poster = 'get from db'
+    movie_data = 'get from db'
+    trailer_title = 'get from db'
+    video_id = 'get from db'
+    new_movie_call = False
+    return render_template('movie.html', title=title, data=movie_data, poster=poster, videoTitle=trailer_title, videoID=video_id, newMovie = new_movie_call)
 if __name__ == '__main__':
     app.run()
