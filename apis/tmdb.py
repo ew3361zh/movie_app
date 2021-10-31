@@ -18,12 +18,14 @@ tmdb_url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=0f6e4ae275505
 def get_movie_titles():
     try:
         # movies, None = CacheDB.check_cache() having None was erroring
+        # movies, error = CacheDB.check_cache()
         movies = CacheDB.check_cache()
         if movies:
             return movies
         else:
             # movie_json, None = get_movie_from_api() None erroring, replaced with error as second return value
-            movie_json = get_movie_from_api()
+            # movie_json, error = get_movie_from_api()
+            movie_json = get_movie_data_from_api()
 
             if movie_json:
                 movie_list = add_titles_to_list(movie_json)
@@ -39,7 +41,7 @@ def get_movie_titles():
         return None, 'Error connecting to TMBD API because' + str(e)
 
 
-def get_movie_from_api():
+def get_movie_data_from_api():
     try:
         movie_data = requests.get(tmdb_url).json()
         return movie_data, None
