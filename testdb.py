@@ -1,7 +1,7 @@
 import sqlite3
 import unittest
 from unittest import TestCase 
-from database import cache_db
+import cache_db
 from datetime import datetime, date, time
 from movie_error import MovieError
 
@@ -63,11 +63,11 @@ class TestCacheDatbase(TestCase):
         # first line of the function and we should not get an error back
 
     def test_check_cache_returns_movies_list(self):
-        test_movies = [{'title':'Cache Movie', 'release_year':'2012', 'tmdb_id':234567}],
-                        [{'title':'Cache Movie 2', 'release_year':'2015', 'tmdb_id':345867}]
+        test_movies = [{'title':'Cache Movie', 'release_year':'2012', 'tmdb_id':234567},
+                        {'title':'Cache Movie 2', 'release_year':'2015', 'tmdb_id':345867}]
         self.db.add_movie_list_cache(test_movies)
         checked_cache_test = self.db.check_cache()
-        compare_db_to_expected(checked_cache_test)
+        self.compare_db_to_expected(checked_cache_test)
 
     def compare_db_to_expected(self, expected):
 
