@@ -3,10 +3,10 @@
 # send new movie object to movie_db add_new_movie function
 
 from exceptions.movie_error import MovieError
-from model.movie_model import Movie
+from model.movie_model import Favorite
 # from database.movie_db import movie_db
 
-def create_new_movie(omdb_data, youtube_video_id):
+def create_new_movie(omdb_data, youtube_video_id, youtube_video_title, tmdb_id):
     # TODO make sure this function is called in main and data is sent with a return object set up to get the new movie object
     # function takes data from main.py to create new movie object
     # if this function is called, it means the secondary apis (OMDB and YouTube) have been called
@@ -20,7 +20,8 @@ def create_new_movie(omdb_data, youtube_video_id):
     actor_2 = actors_list[1]
 
     
-    new_movie = Movie(omdb_data['Title'],
+    new_movie = Favorite(tmdb_id,
+                    omdb_data['Title'],
                     omdb_data['Director'],
                     omdb_data['Released'],
                     actor_1,
@@ -29,6 +30,7 @@ def create_new_movie(omdb_data, youtube_video_id):
                     omdb_data['Genre'],
                     omdb_data['Rated'],
                     omdb_data['Plot'],
+                    youtube_video_title,
                     youtube_video_id)
     
     # TODO add add_movie_to_db(new_movie) in main immediately after this function returns the new_movie object
