@@ -1,5 +1,5 @@
 import sqlite3
-from config import db_path
+from .config import db_path
 from exceptions.movie_error import MovieError
 # from models.movie_model import Favorite # import later
 
