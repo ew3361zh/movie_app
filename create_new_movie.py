@@ -1,26 +1,29 @@
 # take omdb_api json response and youtube_api from main to build new movie object
 # return object back to main for display in flaskApp (or not necessary because data is already available in main?)
 # send new movie object to movie_db add_new_movie function
-
+from pprint import pprint
 from exceptions.movie_error import MovieError
-from model.movie_model import Movie
+from model.movie_model import Favorite
 # from database.movie_db import movie_db
 
-def create_new_movie(omdb_data, youtube_video_id):
-    # TODO make sure this function is called in main and data is sent with a return object set up to get the new movie object
-    # function takes data from main.py to create new movie object
-    # if this function is called, it means the secondary apis (OMDB and YouTube) have been called
-    # which means the original title chosen by the user was checked in the db
-    
+def create_new_movie(omdb_data, youtube_video_id, youtube_video_title, tmdb_id):
+
     # this seems to be the usual format for the actors field in the OMDB API response: "actor_1, actor_2, actor_3"
     # TODO add validation/error handling to this part in case there's only one actor or zero actors listed
+    # pprint(omdb_data)
     actors = omdb_data['Actors']
-    actors_list = actors.split(', ')
-    actor_1 = actors_list[0]
-    actor_2 = actors_list[1]
-
+    # print(actors)
     
-    new_movie = Movie(omdb_data['Title'],
+    if actors != "N/A":
+        actors_list = actors.split(', ')
+        actor_1 = actors_list[0]
+        actor_2 = actors_list[1]
+    else:
+        actor_1 = 'None'
+        actor_2 = 'None'
+    
+    new_movie = Favorite(tmdb_id,
+                    omdb_data['Title'],
                     omdb_data['Director'],
                     omdb_data['Released'],
                     actor_1,
@@ -29,11 +32,10 @@ def create_new_movie(omdb_data, youtube_video_id):
                     omdb_data['Genre'],
                     omdb_data['Rated'],
                     omdb_data['Plot'],
+                    youtube_video_title,
                     youtube_video_id)
-    
-    # TODO add add_movie_to_db(new_movie) in main immediately after this function returns the new_movie object
 
-    return new_movie # if necessary, because data is coming from main.py already
+    return new_movie 
 
 def movie_info_string(movie_object):
     #movie_info = f'Director: {movie_object[1]}\nReleased on: {movie_object[2]}\n Actors: {movie_object[3]}, {movie_object[4]}\nGenre: {movie_object[6]}\nRated: {movie_object[7]}\nPlot:{movie_object[8]}'

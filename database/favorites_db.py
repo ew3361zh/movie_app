@@ -1,7 +1,6 @@
 import sqlite3
-from config import db_path
-from exceptions.movie_error import MovieError
-# from models.movie_model import Favorite # import later
+from .config import db_path
+from model.movie_model import Favorite
 
 db = db_path
 
@@ -21,6 +20,7 @@ class FavoritesDB():
                         genre TEXT,
                         rating TEXT,
                         plot_summary TEXT,
+                        youtube_video_title TEXT,
                         youtube_id TEXT)"""
                         )
 
@@ -35,39 +35,43 @@ class FavoritesDB():
                 conn.row_factory = sqlite3.Row
                 results_query = conn.execute(f'SELECT * FROM favorites')
                 all_favorites = results_query.fetchall()
+                
                 return all_favorites
-            except:
-                raise movie_error.MovieError('Problem fetching all favorites')
-
+            except Exception as e:
+                return None, 'Error connecting to TMBD API because' + str(e)
+                
     # add movie to favorites db
     def add_favorite(self, movie):
         # TODO make sure movie object sent here is getting tmdb_id
         # TODO write test to make sure it's not adding a movie that's already in the DB
-        check_movie = self.check_movie_in_db(movie.tmdb_id)
-        if check_movie == None: 
-            with sqlite3.connect(db) as conn:
-                try:
-                    conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                (movie.tmdb_id,
-                                movie.title,
-                                movie.director,
-                                movie.release_date,
-                                movie.actor_1,
-                                movie.actor_2,
-                                movie.poster_img,
-                                movie.genre,
-                                movie.rating,
-                                movie.plot_summary,
-                                movie.youtube_id))
-                    return True
-                except:
-                    raise MovieError('Problem adding favorite to db')
-        else:
-            return False
+        # check_movie = self.check_movie_in_db(movie.tmdb_id)
+        # print(check_movie)
+        # if check_movie == None: 
+        #     print('should add movie now')
+        with sqlite3.connect(db) as conn:
+            try:
+                conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                            (movie.tmdb_id,
+                            movie.title,
+                            movie.director,
+                            movie.release_date,
+                            movie.actor_1,
+                            movie.actor_2,
+                            movie.poster_img,
+                            movie.genre,
+                            movie.rating,
+                            movie.plot_summary,
+                            movie.youtube_video_title,
+                            movie.youtube_id))
+                return True
+            except Exception as e:
+                return None, 'Error connecting to TMBD API because' + str(e)
+        # else:
+        #     return False
     
     #TODO delete favorite from DB function
     
-    def check_movie_in_db(self, tmdb_id):
+    def get_one_favorite(self, tmdb_id):
         # check if movie title selected is already in db, return whole movie object if it is
         with sqlite3.connect(db) as conn:
             try:
@@ -87,8 +91,10 @@ class FavoritesDB():
                                             results[7],
                                             results[8],
                                             results[9],
-                                            results[10]
+                                            results[10],
+                                            results[11]
                                             )
                     return requested_movie
-            except:
-                raise MovieError('Problem fetching movie from db')
+            except Exception as e:
+                return None, 'Error connecting to TMBD API because' + str(e)
+                

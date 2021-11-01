@@ -8,6 +8,8 @@
     {% for movie in favMovieList %}
     <form action="/show-fav-movie" method="GET">
         <li>{{movie.title}}</li>
+        <!-- <li>{{movie.tmdb_id}}</li> -->
+        <!-- <li>{{movie.id}}</li> -->
         <input type="hidden" name="id" value="{{movie.tmdb_id}}">
         <button type="submit">More Info</button>
     </form>
