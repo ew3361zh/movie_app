@@ -13,6 +13,11 @@
         <input type="hidden" name="id" value="{{movie.tmdb_id}}">
         <button type="submit">More Info</button>
     </form>
+
+    <form action="/delete_movie" method="GET">
+        <input type="hidden" name="id" value="{{movie.tmdb_id}}">
+        <button type="submit">delete movie</button>
+    </form>
     {% endfor %}
 </ol>
 

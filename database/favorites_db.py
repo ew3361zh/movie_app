@@ -74,7 +74,8 @@ class FavoritesDB():
         with sqlite3.connect(db) as conn:
             try:
                 conn.row_factory = sqlite3.Row
-                results_query = conn.execute('DELETE FROM favorites WHERE tmdb_id = ?', (tmdb_id,))
+                conn.execute('DELETE FROM favorites WHERE tmdb_id = ?', (tmdb_id,))
+
             except Exception as e:
                 return None, 'Error deleting movie from Favorites db because ' + str(e)   
     

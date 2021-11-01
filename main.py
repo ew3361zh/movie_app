@@ -63,5 +63,15 @@ def show_movie_from_fav_db():
     fav_details = movie_info_string(fav_from_db)
     new_movie_call = False
     return render_template('movie.html', title=fav_from_db.title, videoTitle=fav_from_db.youtube_video_title, data=fav_details, poster=fav_from_db.poster_img, videoID=fav_from_db.youtube_id, newMovie = new_movie_call)
+
+
+@app.route('/delete_movie')
+def delete_movie():
+    tmdb_id = request.args.get('id')
+    favorites_db.delete_favorite(tmdb_id)
+    
+    favorite_movie_list = favorites_db.get_all_favorites()
+    return render_template('favs.html', favMovieList = favorite_movie_list)
+
 if __name__ == '__main__':
     app.run()
