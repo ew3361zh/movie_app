@@ -31,12 +31,16 @@ class CacheDB():
                         conn.execute('DELETE FROM movies_cache') # results are old, clear them out - doesn't need the *, will just delete everything from this table
                     else:
                         # TODO make sure we can get movies from cache
-                        conn.row_factory = sqlite3.Row
+                        # conn.row_factory = sqlite3.Row
                         results_query = conn.execute('SELECT * FROM movies_cache')
                         movies_list = results_query.fetchall() # need to check what this returns
-                        print(movies_list)
+                        movie_object_list = []
+                        for movie in movies_list:
+                            movie_object = {'title': movie[0], 'year': movie[1], 'id': movie[2]}
+                            movie_object_list.append(movie_object)
+                            # print(movie_object)
                         # return movies_list, None
-                        return movies_list, None #TODO returning movies_list, None seems to be allowing for None, maybe by this point we should only be getting here if there are movies in the cached_db
+                        return movie_object_list
                 else:
                     return None
                 # else:

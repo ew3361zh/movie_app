@@ -23,7 +23,8 @@ def get_movie_titles():
         movies = movie_cache_db.check_cache()
         
         if movies:
-            # pprint(movies)
+            # for movie in movies:
+            #     print(movie[0])
             return movies
         else:
             # movie_json, None = get_movie_from_api() None erroring, replaced with error as second return value
