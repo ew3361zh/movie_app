@@ -38,7 +38,7 @@ class FavoritesDB():
                 
                 return all_favorites
             except Exception as e:
-                return None, 'Error connecting to TMBD API because' + str(e)
+                return None, 'Error getting all favorites because ' + str(e)
                 
     # add movie to favorites db
     def add_favorite(self, movie):
@@ -65,11 +65,18 @@ class FavoritesDB():
                             movie.youtube_id))
                 return True
             except Exception as e:
-                return None, 'Error connecting to TMBD API because' + str(e)
+                return None, 'Error adding favorite to db because ' + str(e)
         # else:
         #     return False
     
-    #TODO delete favorite from DB function
+    def delete_favorite(self, tmdb_id):
+        
+        with sqlite3.connect(db) as conn:
+            try:
+                conn.row_factory = sqlite3.Row
+                results_query = conn.execute('DELETE FROM favorites WHERE tmdb_id = ?', (tmdb_id,))
+            except Exception as e:
+                return None, 'Error deleting movie from Favorites db because ' + str(e)   
     
     def get_one_favorite(self, tmdb_id):
         # check if movie title selected is already in db, return whole movie object if it is
@@ -96,5 +103,5 @@ class FavoritesDB():
                                             )
                     return requested_movie
             except Exception as e:
-                return None, 'Error connecting to TMBD API because' + str(e)
+                return None, 'Error getting favorite from database because ' + str(e)
                 

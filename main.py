@@ -20,7 +20,7 @@ def get_movie():
     title = request.args.get('title')
     year = request.args.get('year')
     tmdb_id = request.args.get('id')
-    print(f'this is the get movie tmdb_id {tmdb_id}')
+    # print(f'this is the get movie tmdb_id {tmdb_id}')
     movie_details = omdb.get_movie_data(title, year)
     vid_title, vid_id = youtube_api.movie_trailer(title)
     # vid_title = 'vid_title'
