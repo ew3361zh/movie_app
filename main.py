@@ -21,24 +21,34 @@ def get_movie():
     year = request.args.get('year')
     tmdb_id = request.args.get('tmdb_id')
     movie_details = omdb.get_movie_data(title, year)
-    vid_title, vid_id = youtube_api.movie_trailer(title)
+    # vid_title, vid_id = youtube_api.movie_trailer(title)
+    vid_title = 'vid_title'
+    vid_id = 'vid_id'
     new_movie = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
     movie_details_for_display = movie_info_string(new_movie)
     new_movie_call = True
     # we need movie_info and poster
-    return render_template('movie.html', title=title, data=movie_details_for_display, poster=new_movie.poster_img, videoTitle=vid_title, videoID=vid_id, newMovie = new_movie_call)
+    return render_template('movie.html', newMovie=new_movie_call, videoID=vid_id, videoTitle=vid_title, title=title, year=year, poster=new_movie.poster_img, tmdb_id=tmdb_id, data=movie_details_for_display)
 
 
 @app.route('/add-to-favs')
 def add_movie_to_fav_db():
+    
     title = request.args.get('title')
-    poster = request.args.get('poster')
-    movie_data = request.args.get('data')
-    trailer_title = request.args.get('videoTitle')
-    video_id = request.args.get('videoID')
+    tmdb_id = request.args.get('tmdb_id')
+    year = request.args.get('year')
+    movie_details = omdb.get_movie_data(title, year)
+    # print(movie_details)
+    # vid_title, vid_id = youtube_api.movie_trailer(title)
+    vid_title = 'vid_title'
+    vid_id = 'vid_id'
+    favorite = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
+    print(favorite)
+    success = favorites_db.add_favorite(favorite) # send movie object to favorites db
+    print(success)
     # using this data, add the movie to favs db
     # get the favorites list
-    favorite_movie_list = []
+    favorite_movie_list = favorites_db.get_all_favorites()
     # send user to favs.html
     return render_template('favs.html', favMovieList = favorite_movie_list)
 
