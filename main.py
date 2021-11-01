@@ -19,11 +19,12 @@ def home_page():
 def get_movie():
     title = request.args.get('title')
     year = request.args.get('year')
-    tmdb_id = request.args.get('tmdb_id')
+    tmdb_id = request.args.get('id')
+    print(f'this is the get movie tmdb_id {tmdb_id}')
     movie_details = omdb.get_movie_data(title, year)
-    # vid_title, vid_id = youtube_api.movie_trailer(title)
-    vid_title = 'vid_title'
-    vid_id = 'vid_id'
+    vid_title, vid_id = youtube_api.movie_trailer(title)
+    # vid_title = 'vid_title'
+    # vid_id = 'vid_id'
     new_movie = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
     movie_details_for_display = movie_info_string(new_movie)
     new_movie_call = True
@@ -39,11 +40,11 @@ def add_movie_to_fav_db():
     year = request.args.get('year')
     movie_details = omdb.get_movie_data(title, year)
     # print(movie_details)
-    # vid_title, vid_id = youtube_api.movie_trailer(title)
-    vid_title = 'vid_title'
-    vid_id = 'vid_id'
+    vid_title, vid_id = youtube_api.movie_trailer(title)
+    # vid_title = 'vid_title'
+    # vid_id = 'vid_id'
     favorite = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
-    print(favorite)
+    print(favorite.tmdb_id)
     success = favorites_db.add_favorite(favorite) # send movie object to favorites db
     print(success)
     # using this data, add the movie to favs db
@@ -54,14 +55,11 @@ def add_movie_to_fav_db():
 
 @app.route('/show-fav-movie')
 def show_movie_from_fav_db():
-    tmdb_id = request.args.get('tmdb_id')
+    tmdb_id = request.args.get('id')
     # using id, get movie details from db
-    title = 'get from db'
-    poster = 'get from db'
-    movie_data = 'get from db'
-    trailer_title = 'get from db'
-    video_id = 'get from db'
+    fav_from_db = favorites_db.get_one_favorite(tmdb_id)
+    fav_details = movie_info_string(fav_from_db)
     new_movie_call = False
-    return render_template('movie.html', title=title, data=movie_data, poster=poster, videoTitle=trailer_title, videoID=video_id, newMovie = new_movie_call)
+    return render_template('movie.html', title=fav_from_db.title, videoTitle=fav_from_db.youtube_video_title, data=fav_details, poster=fav_from_db.poster_img, videoID=fav_from_db.youtube_video_id, newMovie = new_movie_call)
 if __name__ == '__main__':
     app.run()

@@ -43,34 +43,34 @@ class FavoritesDB():
     def add_favorite(self, movie):
         # TODO make sure movie object sent here is getting tmdb_id
         # TODO write test to make sure it's not adding a movie that's already in the DB
-        check_movie = self.check_movie_in_db(movie.tmdb_id)
-        print(check_movie)
-        if check_movie == None: 
-            print('should add movie now')
-            with sqlite3.connect(db) as conn:
-                try:
-                    conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                (movie.tmdb_id,
-                                movie.title,
-                                movie.director,
-                                movie.release_date,
-                                movie.actor_1,
-                                movie.actor_2,
-                                movie.poster_img,
-                                movie.genre,
-                                movie.rating,
-                                movie.plot_summary,
-                                movie.youtube_video_title,
-                                movie.youtube_id))
-                    return True
-                except Exception as e:
-                    return None, 'Error connecting to TMBD API because' + str(e)
-        else:
-            return False
+        # check_movie = self.check_movie_in_db(movie.tmdb_id)
+        # print(check_movie)
+        # if check_movie == None: 
+        #     print('should add movie now')
+        with sqlite3.connect(db) as conn:
+            try:
+                conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                            (movie.tmdb_id,
+                            movie.title,
+                            movie.director,
+                            movie.release_date,
+                            movie.actor_1,
+                            movie.actor_2,
+                            movie.poster_img,
+                            movie.genre,
+                            movie.rating,
+                            movie.plot_summary,
+                            movie.youtube_video_title,
+                            movie.youtube_id))
+                return True
+            except Exception as e:
+                return None, 'Error connecting to TMBD API because' + str(e)
+        # else:
+        #     return False
     
     #TODO delete favorite from DB function
     
-    def check_movie_in_db(self, tmdb_id):
+    def get_one_favorite(self, tmdb_id):
         # check if movie title selected is already in db, return whole movie object if it is
         with sqlite3.connect(db) as conn:
             try:

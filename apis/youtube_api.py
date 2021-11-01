@@ -31,8 +31,8 @@ def movie_trailer(movie):
         vid_title = first_result['snippet']['title']
         video_id = first_result['id']['videoId']
 
-        # return vid_title, video_id
-        return 'vid_title', 'vid_id'
+        return vid_title, video_id
+        # return 'vid_title', 'vid_id'
         
 
     except Exception as e:
