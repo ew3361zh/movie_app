@@ -53,11 +53,12 @@ class CacheDB():
         with sqlite3.connect(db) as conn:
             try:
                 conn.execute('DELETE FROM movies_cache') # just to be safe, deleting previous cache. Ideally only want this to be called after data has been proven too old or doesn't exist in table yet
-                print(movie_list)
+                # print(movie_list)
                 for movie in movie_list:
-                    
-                    conn.executemany(f'INSERT INTO movies_cache VALUES(?, ?, ?, ?)',
-                                (movie.title, movie.year, movie.id, current_time)) # check if same as Abdi's key names in movie_list objects
+                    # print(movie)
+                    conn.execute(f'INSERT INTO movies_cache VALUES(?, ?, ?, ?)',
+                                # (movie.title, movie.year, movie.id, current_time)) # check if same as Abdi's key names in movie_list objects
+                                (movie['title'], movie['year'], movie['id'], current_time))
                 # conn.row_factory = sqlite3.Row
                 # results_query = conn.execute('SELECT * FROM movies_cache')
                 # movies_list = results_query.fetchall()
