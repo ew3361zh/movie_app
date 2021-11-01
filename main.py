@@ -18,7 +18,6 @@ def home_page():
 @app.route('/favorites')
 def favorites_page():
     favorite_movie_list = favorites_db.get_all_favorites()
-    print(favorite_movie_list)
     return render_template('favs.html', favMovieList = favorite_movie_list)
 
 
