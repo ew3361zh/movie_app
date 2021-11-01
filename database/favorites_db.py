@@ -35,6 +35,7 @@ class FavoritesDB():
                 conn.row_factory = sqlite3.Row
                 results_query = conn.execute(f'SELECT * FROM favorites')
                 all_favorites = results_query.fetchall()
+                
                 return all_favorites
             except Exception as e:
                 return None, 'Error connecting to TMBD API because' + str(e)

@@ -50,6 +50,8 @@ def add_movie_to_fav_db():
     # using this data, add the movie to favs db
     # get the favorites list
     favorite_movie_list = favorites_db.get_all_favorites()
+    # for movie in favorite_movie_list:
+    #     print(movie)
     # send user to favs.html
     return render_template('favs.html', favMovieList = favorite_movie_list)
 
@@ -60,6 +62,6 @@ def show_movie_from_fav_db():
     fav_from_db = favorites_db.get_one_favorite(tmdb_id)
     fav_details = movie_info_string(fav_from_db)
     new_movie_call = False
-    return render_template('movie.html', title=fav_from_db.title, videoTitle=fav_from_db.youtube_video_title, data=fav_details, poster=fav_from_db.poster_img, videoID=fav_from_db.youtube_video_id, newMovie = new_movie_call)
+    return render_template('movie.html', title=fav_from_db.title, videoTitle=fav_from_db.youtube_video_title, data=fav_details, poster=fav_from_db.poster_img, videoID=fav_from_db.youtube_id, newMovie = new_movie_call)
 if __name__ == '__main__':
     app.run()
