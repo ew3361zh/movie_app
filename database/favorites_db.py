@@ -1,7 +1,6 @@
 import sqlite3
 from .config import db_path
-from exceptions.movie_error import MovieError
-# from models.movie_model import Favorite # import later
+from model.movie_model import Favorite
 
 db = db_path
 
@@ -21,6 +20,7 @@ class FavoritesDB():
                         genre TEXT,
                         rating TEXT,
                         plot_summary TEXT,
+                        youtube_video_title TEXT,
                         youtube_id TEXT)"""
                         )
 
@@ -36,9 +36,9 @@ class FavoritesDB():
                 results_query = conn.execute(f'SELECT * FROM favorites')
                 all_favorites = results_query.fetchall()
                 return all_favorites
-            except:
-                raise movie_error.MovieError('Problem fetching all favorites')
-
+            except Exception as e:
+                return None, 'Error connecting to TMBD API because' + str(e)
+                
     # add movie to favorites db
     def add_favorite(self, movie):
         # TODO make sure movie object sent here is getting tmdb_id
@@ -58,10 +58,11 @@ class FavoritesDB():
                                 movie.genre,
                                 movie.rating,
                                 movie.plot_summary,
+                                movie.youtube_video_title,
                                 movie.youtube_id))
                     return True
-                except:
-                    raise MovieError('Problem adding favorite to db')
+                except Exception as e:
+                    return None, 'Error connecting to TMBD API because' + str(e)
         else:
             return False
     
@@ -87,8 +88,10 @@ class FavoritesDB():
                                             results[7],
                                             results[8],
                                             results[9],
-                                            results[10]
+                                            results[10],
+                                            results[11]
                                             )
                     return requested_movie
-            except:
-                raise MovieError('Problem fetching movie from db')
+            except Exception as e:
+                return None, 'Error connecting to TMBD API because' + str(e)
+                

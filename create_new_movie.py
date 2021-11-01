@@ -10,9 +10,10 @@ def create_new_movie(omdb_data, youtube_video_id, youtube_video_title, tmdb_id):
 
     # this seems to be the usual format for the actors field in the OMDB API response: "actor_1, actor_2, actor_3"
     # TODO add validation/error handling to this part in case there's only one actor or zero actors listed
+    pprint(omdb_data)
     actors = omdb_data['Actors']
     print(actors)
-    pprint(omdb_data)
+    
     if actors != "N/A":
         actors_list = actors.split(', ')
         actor_1 = actors_list[0]
