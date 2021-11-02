@@ -12,6 +12,7 @@ movie_cache_db = CacheDB() # create cache db
 @app.route('/')
 def home_page():
     movies = tmdb.get_movie_titles()
+    print(movies)
     return render_template('index.html', movies = movies)
 
 
@@ -44,9 +45,9 @@ def add_movie_to_fav_db():
     # vid_title = 'vid_title'
     # vid_id = 'vid_id'
     favorite = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
-    print(favorite.tmdb_id)
+    # print(favorite.tmdb_id)
     success = favorites_db.add_favorite(favorite) # send movie object to favorites db
-    print(success)
+    # print(success)
     # using this data, add the movie to favs db
     # get the favorites list
     favorite_movie_list = favorites_db.get_all_favorites()
