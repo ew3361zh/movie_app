@@ -5,10 +5,25 @@ from database.cached_db import CacheDB
 from create_new_movie import create_new_movie
 from create_new_movie import movie_info_string
 from main_helper import *
+import logging
+
+
 
 app = Flask(__name__)
 favorites_db = FavoritesDB() # create favorites db
 movie_cache_db = CacheDB() # create cache db
+
+
+
+@app.errorhandler(Exception)          
+def basic_error(e): 
+           
+    error = 'an error occured: ' + str(e)
+    logging.basicConfig(filename='movie_app.log', level=logging.INFO)
+    logging.error(e)
+    return render_template('error.html', error = 'Sorry the page is broken')
+    # return "an error occured: " + str(e)
+
 
 @app.route('/')
 def home_page():
