@@ -42,12 +42,6 @@ class FavoritesDB():
                 
     # add movie to favorites db
     def add_favorite(self, movie):
-        # TODO make sure movie object sent here is getting tmdb_id
-        # TODO write test to make sure it's not adding a movie that's already in the DB
-        # check_movie = self.check_movie_in_db(movie.tmdb_id)
-        # print(check_movie)
-        # if check_movie == None: 
-        #     print('should add movie now')
         with sqlite3.connect(db) as conn:
             try:
                 conn.execute(f'INSERT INTO favorites VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -63,11 +57,9 @@ class FavoritesDB():
                             movie.plot_summary,
                             movie.youtube_video_title,
                             movie.youtube_id))
-                return True
+                
             except Exception as e:
-                return None, 'Error adding favorite to db because ' + str(e)
-        # else:
-        #     return False
+                return 'Error adding favorite to db because ' + str(e)
     
     def delete_favorite(self, tmdb_id):
         

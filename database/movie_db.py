@@ -50,7 +50,6 @@ class MovieDB():
     # add movie
     def add_movie_to_db(self, movie):
         # add a movie to the db assuming it's not in db (title field is unique)
-        # TODO write test to make sure it's not adding a movie that's already in the DB
         with sqlite3.connect(db) as conn:
             try:
                 conn.execute(f'INSERT INTO movies VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -64,7 +63,6 @@ class MovieDB():
                             movie.rating,
                             movie.plot_summary,
                             movie.youtube_id))
-                # conn.close()
             except:
                 raise MovieError('Problem adding movie to db')
 

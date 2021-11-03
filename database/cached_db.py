@@ -1,7 +1,6 @@
 import sqlite3
 from .config import db_path
 from datetime import datetime, date, time
-# from exceptions.movie_error import MovieError
 
 db = db_path
 MAX_AGE_SECONDS = 30 # tbd actual time we should use
@@ -30,38 +29,25 @@ class CacheDB():
                     if current_time - cached_time[3] > MAX_AGE_SECONDS or cached_time == None:
                         conn.execute('DELETE FROM movies_cache') # results are old, clear them out - doesn't need the *, will just delete everything from this table
                     else:
-                        # TODO make sure we can get movies from cache
-                        # conn.row_factory = sqlite3.Row
                         results_query = conn.execute('SELECT * FROM movies_cache')
                         movies_list = results_query.fetchall() # need to check what this returns
                         movie_object_list = []
                         for movie in movies_list:
                             movie_object = {'title': movie[0], 'year': movie[1], 'id': movie[2]}
                             movie_object_list.append(movie_object)
-                            # print(movie_object)
-                        # return movies_list, None
                         return movie_object_list
                 else:
                     return None
-                # else:
-                #     results_query = conn.execute('SELECT * FROM movies_cache')
-                #     movies_list = results_query.fetchall() # need to check what this returns
-                #     # return movies_list, None
-                #     return movies_list, None #TODO returning movies_list, None seems to be allowing for None, maybe by this point we should only be getting here if there are movies in the cached_db
             except Exception as e:
                 return None, 'Error connecting to TMBD API because' + str(e)
-                # raise MovieError('Problem fetching cached movies list from db')
-                # pass
+
     
     def add_movie_list_cache(self, movie_list):
-        # print(movie_list)
         current_time = datetime.now().timestamp()
         with sqlite3.connect(db) as conn:
             try:
                 conn.execute('DELETE FROM movies_cache') # just to be safe, deleting previous cache. Ideally only want this to be called after data has been proven too old or doesn't exist in table yet
-                # print(movie_list)
                 for movie in movie_list:
-                    # print(movie)
                     conn.execute(f'INSERT INTO movies_cache VALUES(?, ?, ?, ?)',
                                 (movie['title'], movie['year'], movie['id'], current_time))
            

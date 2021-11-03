@@ -3,7 +3,6 @@ from apis import omdb, tmdb, youtube_api
 from database.favorites_db import FavoritesDB
 from database.cached_db import CacheDB
 from create_new_movie import create_new_movie
-from create_new_movie import movie_info_string
 from main_helper import *
 import logging
 
@@ -60,7 +59,7 @@ def add_movie_to_fav_db():
     tmdb_id = request.args.get('tmdb_id')
     date = request.args.get('date')
     favorite = assemble_favorite_movie_object(title, date, tmdb_id)
-    success = favorites_db.add_favorite(favorite)
+    favorites_db.add_favorite(favorite)
     favorite_movie_list = favorites_db.get_all_favorites()
 
     return render_template('favs.html', favMovieList = favorite_movie_list)
@@ -70,7 +69,6 @@ def show_movie_from_fav_db():
     # this function one particular movie's data from favorites db for display in movie.html
     tmdb_id = request.args.get('id')
     fav_from_db = favorites_db.get_one_favorite(tmdb_id)
-    fav_details = movie_info_string(fav_from_db)
     new_movie_call = False
 
     return render_template('movie.html', movie_object=fav_from_db, new_movie = new_movie_call)
