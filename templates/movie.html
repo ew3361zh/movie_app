@@ -8,9 +8,9 @@
 
 
 <!-- movie poster  -->
-{% if poster %}
+{% if movie_object.poster_img %}
 
-<img alt="{{videoTitle}} poster" src="{{poster}}">
+<img alt="{{movie_object.youtube_video_title}} poster" src="{{movie_object.poster_img}}">
 
 {% else %}
 
@@ -21,42 +21,47 @@
 
 <!-- Movie info  -->
 
-{% if data %}
+{% if movie_object.plot_summary %}
 
 <h2>Movie data</h2>
 
-<p>{{data}}</p>
+<p>Director: {{movie_object.director}}</p>
+<p>Released: {{movie_object.release_date}}</p>
+<p>Starring: {{movie_object.actor_1, movie_object.actor_2}}</p>
+<p>Genre: {{movie_object.genre}}</p>
+<p>Rated: {{movie_object.rating}}</p>
+<p>Plot: {{movie_object.plot_summary}}</p>
 
 {% else %}
 
-<h2>Sorry, no movie fact</h2>
+<h2>Sorry, no movie facts available at this time</h2>
 
 {% endif %}
 
 
 <!-- Trailer -->
 
-{% if videoID %}
+{% if movie_object.youtube_id %}
 
-<h2>{{ videoTitle }}</h2>
+<h2>{{ movie_object.youtube_video_title }}</h2>
 
-<iframe width="420" height="315" src="https://www.youtube.com/embed/{{videoID}}"></iframe>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/{{movie_object.youtube_id}}"></iframe>
 
 {% else %} 
 
-<h2>Sorry, no movie trailer</h2>
+<h2>Sorry, no movie trailer available</h2>
 
 {% endif %}
 
-<!-- {{poster}} {{data}} {{ videoTitle }} videoID-->
-{% if videoID and poster and data and newMovie %}
+
+
 <form action="/add-to-favs" method="GET">
-    <input type="hidden" name="tmdb_id" value="{{tmdb_id}}">
-    <input type="hidden" name="title" value="{{title}}">
-    <input type="hidden" name="year" value="{{year}}">
+    <input type="hidden" name="tmdb_id" value="{{movie_object.tmdb_id}}">
+    <input type="hidden" name="title" value="{{movie_object.title}}">
+    <input type="hidden" name="year" value="{{movie_object.year}}">
     <button type="submit">Add to favorites</button>
 </form>
-{% endif %}
+
 
 <br><a href="/favorites"><button>favorite Movies</button></a>
 

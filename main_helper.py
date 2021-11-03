@@ -1,11 +1,12 @@
-# # helper methods to allow data and functions to communicate
-# # between sub folders
+from apis import omdb, tmdb, youtube_api
+from create_new_movie import create_new_movie
+from create_new_movie import movie_info_string
 
-# from main import movie_cache_db
+def assemble_selected_movie_data(title, year, tmdb_id):
+    movie_details = omdb.get_movie_data(title, year)
+    vid_title, vid_id = youtube_api.movie_trailer(title)
+    new_movie = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
+    movie_details_for_display = movie_info_string(new_movie)
+    new_movie_call = True
 
-# def check_cache_db_helper():
-#     movies = movie_cache_db.check_cache()
-#     return movies
-
-# def send_movie_list_to_db(movie_list):
-#     movie_cache_db.add_movie_list_cache(movie_list)
+    return new_movie_call, new_movie, movie_details_for_display
