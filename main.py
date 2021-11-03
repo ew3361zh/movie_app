@@ -16,6 +16,12 @@ def home_page():
     return render_template('index.html', movies = movies)
 
 
+@app.route('/favorites')
+def favorites_page():
+    favorite_movie_list = favorites_db.get_all_favorites()
+    return render_template('favs.html', favMovieList = favorite_movie_list)
+
+
 @app.route('/get-movie')
 def get_movie():
     title = request.args.get('title')

@@ -2,6 +2,9 @@
 
 {% block content %}
 
+<!-- favorite movies  -->
+{% if favMovieList %}
+
 <h1>Favorite Movies</h1>
 
 <ol>
@@ -21,4 +24,9 @@
     {% endfor %}
 </ol>
 
+{% else %}
+
+<h2>Sorry, your database is empty </h2>
+
+{% endif %}
 {% endblock %}
