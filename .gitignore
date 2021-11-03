@@ -6,6 +6,8 @@ __pycache__
 .idea
 scratch.py
 movies.sqlite
+movie_app.log
+
 
 
 

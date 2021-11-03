@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <h1>About the app</h1>
+    <h2>Latest Movie Releases Info App</h2>
+
+    <h3> date created: November 2021</h3> 
+    <h3>created by</h3> 
+    <ul>
+        <li>Niko T. (@ew3361zh)</li>
+        <li>Mohammad Z. (@sf7293gv)</li>
+        <li>Abdifatah A. (@3bdifatah)</li>
+    </ul>
+
+    <h3>API</h3> 
+    <ul>
+        <li>[The Movie Database - TMDB](https://www.themoviedb.org/)</li>
+        <li>[The Open Movie Database - OMDB](https://www.omdbapi.com/)</li>
+        <li>[YouTube](https://developers.google.com/youtube/v3/docs/search/list)</li>
+    </ul>
+    <p>
+        Rendered to web app via Flask.
+        The top 20 latest movie theater releases in the US are queried from The Movie Database and presented to the user on the home page (index).
+        User clicks a button to get more info on one of the movies from this list and a host of information including an image of the movie poster, the director of the movie, some of the actors, the official movie trailer embedded YouTube video and more is all presented in a single page to the user. They have the option to add that movie to their favorites or search for info on another of the top 20 recent releases. User can then query a list of their favorites all collected in one page with the option to view the full movie info or to remove the movie from their favorites.
+    </p>
+
+    <h3>To install and run</h3>
+
+    <ol>
+        <li> Create a [YouTube API key](https://developers.google.com/youtube/registering_an_application). Only need an API key.
+        <li> Create an environment variable **YOUTUBE_API** to hold your key.
+        <li> Create a [TMDB API key](https://developers.themoviedb.org/3/getting-started/authentication).
+        <li> Create an environment variable **TMDB_KEY** to hold your key.
+        <li> Create a [OMDB API key](https://www.omdbapi.com/apikey.aspx).
+        <li> Create an environment variable **OMDB_KEY** to hold your key.
+
+        <li> Create and activate virtual environment using Python 3
+        <li> `pip install -r requirements.txt`
+        <li> `python main.py`
+    </ol>
+    <h3>App will be running on http://127.0.0.1:5000</h3>
+</body>
+</html>
+{% endblock %}

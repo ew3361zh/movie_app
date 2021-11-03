@@ -4,10 +4,21 @@ from database.favorites_db import FavoritesDB
 from database.cached_db import CacheDB
 from create_new_movie import create_new_movie
 from create_new_movie import movie_info_string
+from flask_nav import Nav
+from flask_nav.elements import Navbar, Subgroup, Link, View, Separator
 
 app = Flask(__name__)
+nav = Nav(app)
 favorites_db = FavoritesDB() # create favorites db
 movie_cache_db = CacheDB() # create cache db
+
+nav.register_element('nav_bar', Navbar(
+    'nav',
+    View('HOME', 'home_page'),
+    View('Favorites', 'favorites_page'),
+    View('About', 'about'),
+    Separator(),
+    ))
 
 @app.route('/')
 def home_page():
@@ -20,6 +31,11 @@ def home_page():
 def favorites_page():
     favorite_movie_list = favorites_db.get_all_favorites()
     return render_template('favs.html', favMovieList = favorite_movie_list)
+
+
+@app.route('/abou')
+def about():
+    return render_template('about.html')
 
 
 @app.route('/get-movie')

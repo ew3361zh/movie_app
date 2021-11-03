@@ -9,6 +9,24 @@
 </head>
 
 <body>
+  <style>
+    .navbar{
+      list-style: none;
+      background-color: lightblue;
+    }
+    .navbar li{
+    display: inline-block;
+    padding: 0px 20px;
+    }
+    .navbar li a{
+      transition: all 0.3s ease 0s;
+    }
+    .navbar li a:hover{
+      color: #0088a9;
+    }
+  </style>
+  
+  {{ nav.nav_bar.render() }}
 
   {% block content %}   <!-- A block that the child template will fill in -->
 
