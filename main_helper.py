@@ -1,11 +1,28 @@
-# # helper methods to allow data and functions to communicate
-# # between sub folders
+from apis import omdb, tmdb, youtube_api
+from create_new_movie import create_new_movie
+from create_new_movie import movie_info_string
+# from database.favorites_db import FavoritesDB
 
-# from main import movie_cache_db
 
-# def check_cache_db_helper():
-#     movies = movie_cache_db.check_cache()
-#     return movies
+def assemble_selected_movie_data(title, year, tmdb_id):
 
-# def send_movie_list_to_db(movie_list):
-#     movie_cache_db.add_movie_list_cache(movie_list)
+    movie_details = omdb.get_movie_data(title, year)
+    vid_title, vid_id = youtube_api.movie_trailer(title)
+    new_movie = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
+    
+    return new_movie
+
+def assemble_favorite_movie_object(title, date, tmdb_id):
+    date = date.split()
+    year=date[-1]
+    movie_details = omdb.get_movie_data(title, year)
+    vid_title, vid_id = youtube_api.movie_trailer(title)
+    favorite = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
+
+    return favorite
+
+def show_add_to_favorites_button(favorite):
+    if favorite:
+        return False
+    else:
+        return True

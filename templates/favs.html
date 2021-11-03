@@ -1,32 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div>
+    <a href="/"><button>Home</button></a>
+    <a href="/favorites"><button>Favorite Movies</button></a>
+</div>
 <!-- favorite movies  -->
 {% if favMovieList %}
 
-<h1>Favorite Movies</h1>
+<h1>Your Favorite Movies</h1>
 
-<ol>
-    {% for movie in favMovieList %}
-    <form action="/show-fav-movie" method="GET">
-        <li>{{movie.title}}</li>
-        <!-- <li>{{movie.tmdb_id}}</li> -->
-        <!-- <li>{{movie.id}}</li> -->
-        <input type="hidden" name="id" value="{{movie.tmdb_id}}">
-        <button type="submit">More Info</button>
-    </form>
 
-    <form action="/delete_movie" method="GET">
-        <input type="hidden" name="id" value="{{movie.tmdb_id}}">
-        <button type="submit">delete movie</button>
-    </form>
-    {% endfor %}
-</ol>
+{% for movie in favMovieList %}
+
+<form action="/show-fav-movie" method="GET">
+    <li>{{movie.title}}</li>
+    <input type="hidden" name="id" value="{{movie.tmdb_id}}">
+    <button type="submit">More Info</button>
+</form>
+
+<form action="/delete_movie" method="GET">
+    <input type="hidden" name="id" value="{{movie.tmdb_id}}">
+    <button type="submit">Remove From Favorites</button>
+</form>
+
+{% endfor %}
 
 {% else %}
 
-<h2>Sorry, your database is empty </h2>
+<h2>Sorry, You Have No Favorite Movies at This Time </h2>
 
 {% endif %}
+
 {% endblock %}

@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div>
+    <a href="/"><button>Home</button></a>
+    <a href="/favorites"><button>Favorite Movies</button></a>
+</div>
 
-<h1>Movie App</h1>
+<h1>Top Movies in Theaters This Week</h1>
 
-<a href="/favorites"><button>favorite Movies</button></a>
 
-<h2>Select a movie</h2>
+<h2>Click On A Movie to Learn More About It!</h2>
 
 <ol>
     {% for movie in movies %}
     <form action="/get-movie" method="GET">
         <li>{{movie.title}}</li>
-        <!-- <li>{{movie.id}}</li> -->
         <input type="hidden" name="id" value="{{movie.id}}">
         <input type="hidden" name="year" value="{{movie.year}}">
         <input type="hidden" name="title" value="{{movie.title}}">
