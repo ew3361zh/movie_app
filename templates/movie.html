@@ -8,6 +8,7 @@
 </div>
 
 <h1>More Information About Your Movie</h1>
+
 {% if new_movie_call %}
 
 <form action="/add-to-favs" method="GET">
@@ -21,9 +22,10 @@
 {% endif %}
 
 <!-- movie poster  -->
+
 {% if movie_object.poster_img %}
 <br>
-<img alt="{{movie_object.youtube_video_title}} poster" src="{{movie_object.poster_img}}">
+<img alt="{{movie_object.title}} poster not available" src="{{movie_object.poster_img}}">
 
 {% else %}
 
@@ -34,13 +36,11 @@
 
 <!-- Movie info  -->
 
-
-
 <h2>Movie Details</h2>
 
 {% if movie_object.director %}
 
-<p>Director: {{movie_object.director}}</p>
+<p><b>Director:</b> {{movie_object.director}}</p>
 
 {% else %}
 
@@ -48,11 +48,11 @@
 
 {% endif %}
 
-<p>Released: {{movie_object.release_date}}</p>
+<p><b>Released:</b> {{movie_object.release_date}}</p>
 
 {% if movie_object.actor_1 %}
 
-<p>Starring: {{movie_object.actor_1}}, {{movie_object.actor_2}}</p>
+<p><b>Starring:</b> {{movie_object.actor_1}}, {{movie_object.actor_2}}</p>
 
 {% else %}
 
@@ -62,7 +62,7 @@
 
 {% if movie_object.genre %}
 
-<p>Genre: {{movie_object.genre}}</p>
+<p><b>Genre:</b> {{movie_object.genre}}</p>
 
 {% else %}
 
@@ -72,7 +72,7 @@
 
 {% if movie_object.rating %}
 
-<p>Rated: {{movie_object.rating}}</p>
+<p><b>Rated:</b> {{movie_object.rating}}</p>
 
 {% else %}
 
@@ -82,7 +82,7 @@
 
 {% if movie_object.plot_summary %}
 
-<p>Plot: {{movie_object.plot_summary}}</p>
+<p><b>Plot:</b> {{movie_object.plot_summary}}</p>
 
 {% else %}
 

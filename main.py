@@ -17,18 +17,19 @@ movie_cache_db = CacheDB() # create cache db
 
 @app.errorhandler(Exception)          
 def basic_error(e): 
-           
+    # general page for display for error handling
     error = 'an error occured: ' + str(e)
     logging.basicConfig(filename='movie_app.log', level=logging.INFO)
     logging.error(e)
+
     return render_template('error.html', error = 'Sorry, can\'t find movie info at this time, try another movie from the home page')
-    # return "an error occured: " + str(e)
 
 
 @app.route('/')
 def home_page():
     # this function queries tmdb api or cache if exists to get initial list of movie titles for display on home index page
     movies = tmdb.get_movie_titles()
+
     return render_template('index.html', movies = movies)
 
 
@@ -36,6 +37,7 @@ def home_page():
 def favorites_page():
     # this function returns a list of favorite movies stored in the favorites db
     favorite_movie_list = favorites_db.get_all_favorites()
+
     return render_template('favs.html', favMovieList = favorite_movie_list)
 
 
@@ -53,7 +55,7 @@ def get_movie():
 
 @app.route('/add-to-favs')
 def add_movie_to_fav_db():
-    
+    # this function adds a movie to the favorites database and favorites list for display
     title = request.args.get('title')
     tmdb_id = request.args.get('tmdb_id')
     date = request.args.get('date')
@@ -65,6 +67,7 @@ def add_movie_to_fav_db():
 
 @app.route('/show-fav-movie')
 def show_movie_from_fav_db():
+    # this function one particular movie's data from favorites db for display in movie.html
     tmdb_id = request.args.get('id')
     fav_from_db = favorites_db.get_one_favorite(tmdb_id)
     fav_details = movie_info_string(fav_from_db)
@@ -75,11 +78,13 @@ def show_movie_from_fav_db():
 
 @app.route('/delete_movie')
 def delete_movie():
+    # this function deletes a movie from the favorites list and from the favorites db
     tmdb_id = request.args.get('id')
     favorites_db.delete_favorite(tmdb_id)
     favorite_movie_list = favorites_db.get_all_favorites()
 
     return render_template('favs.html', favMovieList = favorite_movie_list)
+
 
 if __name__ == '__main__':
     app.run()
