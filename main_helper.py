@@ -17,4 +17,9 @@ def assemble_favorite_movie_object(title, year, tmdb_id):
     vid_title, vid_id = youtube_api.movie_trailer(title)
     favorite = create_new_movie(movie_details, vid_id, vid_title, tmdb_id)
     return favorite
-    
+
+def show_add_to_favorites_button(favorite):
+    if favorite:
+        return False
+    else:
+        return True

@@ -4,7 +4,7 @@ from database.favorites_db import FavoritesDB
 from database.cached_db import CacheDB
 from create_new_movie import create_new_movie
 from create_new_movie import movie_info_string
-from main_helper import assemble_selected_movie_data, assemble_favorite_movie_object
+from main_helper import *
 
 app = Flask(__name__)
 favorites_db = FavoritesDB() # create favorites db
@@ -31,12 +31,9 @@ def get_movie():
     year = request.args.get('year')
     tmdb_id = request.args.get('id')
     new_movie = assemble_selected_movie_data(title, year, tmdb_id)
-    movie_check = favorites_db.get_one_favorite(tmdb_id)
-    if (movie_check):
-        new_movie_call = False
-    else:
-        new_movie_call = True
-    return render_template('movie.html', new_movie_call=new_movie_call, movie_object=new_movie)
+    show_or_not = show_add_to_favorites_button(favorites_db.get_one_favorite(tmdb_id))
+    
+    return render_template('movie.html', new_movie_call=show_or_not, movie_object=new_movie)
 
 
 @app.route('/add-to-favs')
