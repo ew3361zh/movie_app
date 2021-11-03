@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div>
+    <a href="/"><button>Home</button></a>
+    <a href="/favorites"><button>Favorite Movies</button></a>
+</div>
 
-<h1>Movie App</h1>
+<h1>Top New Movies in Theaters This Week</h1>
 
-<a href="/favorites"><button>favorite Movies</button></a>
 
-<h2>Select a movie</h2>
+<h2>Click On A Movie to Learn More About It!</h2>
 
 <ol>
     {% for movie in movies %}

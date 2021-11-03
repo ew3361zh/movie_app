@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{error}}</h1>
-<form action="/" method="GET">
-    <button type="submit">Go Back</button>
-</form>
+<div>
+    <a href="/"><button>Home</button></a>
+    <a href="/favorites"><button>Favorite Movies</button></a>
+</div>
 {% endblock %}

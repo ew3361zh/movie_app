@@ -2,14 +2,27 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div>
+<a href="/"><button>Home</button></a>
+<a href="/favorites"><button>Favorite Movies</button></a>
+</div>
 
+<h1>More Information About Your Movie</h1>
+{% if new_movie_call %}
 
-<h1>Here is your movie information</h1>
+<form action="/add-to-favs" method="GET">
+    <input type="hidden" name="tmdb_id" value="{{movie_object.tmdb_id}}">
+    <input type="hidden" name="title" value="{{movie_object.title}}">
+    <input type="hidden" name="date" value="{{movie_object.release_date}}">
+    <button type="submit" id="btn">Add to favorites</button>
+    
+</form>
 
+{% endif %}
 
 <!-- movie poster  -->
 {% if movie_object.poster_img %}
-
+<br>
 <img alt="{{movie_object.youtube_video_title}} poster" src="{{movie_object.poster_img}}">
 
 {% else %}
@@ -23,7 +36,8 @@
 
 {% if movie_object.plot_summary %}
 
-<h2>Movie data</h2>
+<h2>Movie Details</h2>
+
 
 <p>Director: {{movie_object.director}}</p>
 <p>Released: {{movie_object.release_date}}</p>
@@ -54,15 +68,16 @@
 {% endif %}
 
 {% if new_movie_call %}
-
+<div>
 <form action="/add-to-favs" method="GET">
     <input type="hidden" name="tmdb_id" value="{{movie_object.tmdb_id}}">
     <input type="hidden" name="title" value="{{movie_object.title}}">
     <input type="hidden" name="date" value="{{movie_object.release_date}}">
     <button type="submit" id="btn">Add to favorites</button>
 </form>
+</div>
 {% endif %}
 
-<br><a href="/favorites"><button>favorite Movies</button></a>
+<br>
 
 {% endblock %}
