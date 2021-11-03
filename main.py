@@ -21,7 +21,7 @@ def basic_error(e):
     error = 'an error occured: ' + str(e)
     logging.basicConfig(filename='movie_app.log', level=logging.INFO)
     logging.error(e)
-    return render_template('error.html', error = 'Sorry the page is broken')
+    return render_template('error.html', error = 'Sorry, can\'t find movie info at this time, try another movie from the home page')
     # return "an error occured: " + str(e)
 
 

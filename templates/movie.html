@@ -34,21 +34,59 @@
 
 <!-- Movie info  -->
 
-{% if movie_object.plot_summary %}
+
 
 <h2>Movie Details</h2>
 
+{% if movie_object.director %}
 
 <p>Director: {{movie_object.director}}</p>
+
+{% else %}
+
+<h2>No director info available at this time</h2>
+
+{% endif %}
+
 <p>Released: {{movie_object.release_date}}</p>
-<p>Starring: {{movie_object.actor_1, movie_object.actor_2}}</p>
+
+{% if movie_object.actor_1 %}
+
+<p>Starring: {{movie_object.actor_1}}, {{movie_object.actor_2}}</p>
+
+{% else %}
+
+<h2>No actor info available at this time</h2>
+
+{% endif %}
+
+{% if movie_object.genre %}
+
 <p>Genre: {{movie_object.genre}}</p>
+
+{% else %}
+
+<h2>No genre info available at this time</h2>
+
+{% endif %}
+
+{% if movie_object.rating %}
+
 <p>Rated: {{movie_object.rating}}</p>
+
+{% else %}
+
+<h2>No movie rating info available at this time</h2>
+
+{% endif %}
+
+{% if movie_object.plot_summary %}
+
 <p>Plot: {{movie_object.plot_summary}}</p>
 
 {% else %}
 
-<h2>Sorry, no movie facts available at this time</h2>
+<h2>No plot summary available at this time</h2>
 
 {% endif %}
 
