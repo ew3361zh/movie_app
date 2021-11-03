@@ -53,15 +53,15 @@
 
 {% endif %}
 
-
+{% if new_movie_call %}
 
 <form action="/add-to-favs" method="GET">
     <input type="hidden" name="tmdb_id" value="{{movie_object.tmdb_id}}">
     <input type="hidden" name="title" value="{{movie_object.title}}">
     <input type="hidden" name="year" value="{{movie_object.year}}">
-    <button type="submit">Add to favorites</button>
+    <button type="submit" id="btn">Add to favorites</button>
 </form>
-
+{% endif %}
 
 <br><a href="/favorites"><button>favorite Movies</button></a>
 
