@@ -58,7 +58,7 @@
 <form action="/add-to-favs" method="GET">
     <input type="hidden" name="tmdb_id" value="{{movie_object.tmdb_id}}">
     <input type="hidden" name="title" value="{{movie_object.title}}">
-    <input type="hidden" name="year" value="{{movie_object.year}}">
+    <input type="hidden" name="date" value="{{movie_object.release_date}}">
     <button type="submit" id="btn">Add to favorites</button>
 </form>
 {% endif %}

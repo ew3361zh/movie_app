@@ -56,8 +56,8 @@ def add_movie_to_fav_db():
     
     title = request.args.get('title')
     tmdb_id = request.args.get('tmdb_id')
-    year = request.args.get('year')
-    favorite = assemble_favorite_movie_object(title, year, tmdb_id)
+    date = request.args.get('date')
+    favorite = assemble_favorite_movie_object(title, date, tmdb_id)
     success = favorites_db.add_favorite(favorite)
     favorite_movie_list = favorites_db.get_all_favorites()
 
