@@ -84,5 +84,12 @@ def delete_movie():
     return render_template('favs.html', favMovieList = favorite_movie_list)
 
 
+@app.route('/about')
+def about():
+    # this function renders to about page
+    return render_template('about.html')
+
+
+
 if __name__ == '__main__':
     app.run()
