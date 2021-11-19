@@ -10,4 +10,4 @@ def get_movie_data(title, release_year):
         movie_data = requests.get(omdb_url).json()
         return movie_data
     except Exception as e:
-        print('Can\'t fetch fact because', e)
+        print('Can\'t fetch fact because', e)  # fact?
