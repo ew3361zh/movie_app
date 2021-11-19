@@ -78,10 +78,10 @@ class FavoritesDB():
                 conn.row_factory = sqlite3.Row
                 results_query = conn.execute('SELECT * FROM favorites WHERE tmdb_id = ?', (tmdb_id,))
                 results = results_query.fetchone()
-                if results == None:
+                if results is None:   # == works, but the "is" operator is more usual 
                     return None # or return False/True
                 else:
-                    requested_movie = Favorite(results[0],
+                    requested_movie = Favorite(results[0],   # AAAAAAAAA
                                             results[1],
                                             results[2],
                                             results[3],

@@ -19,6 +19,8 @@ class TestCacheDatbase(TestCase):
             conn.execute('DROP TABLE IF EXISTS movies_cache')
         conn.close()
 
+        # the tests should invoke your code to create the database. Otherwise, you are only testing the tests.
+        # and you'll have to change this if you change the DB structure in the code 
         with sqlite3.connect(self.test_cache_db) as conn:
             conn.execute("""CREATE TABLE movies_cache (
                             title TEXT NOT_NULL,
@@ -78,6 +80,6 @@ class TestCacheDatbase(TestCase):
 
         for row in all_rows:
             self.assertIn(row[0], expected.keys())
-            self.assertEqual(expected[row[0]], row[1])
+            self.assertEqual(expected[row[0]], row[1])  # does this check all the data in the row? There's more than 2 columns?
         
         conn.close()

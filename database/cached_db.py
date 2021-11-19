@@ -26,6 +26,7 @@ class CacheDB():
                 results_query = conn.execute('SELECT * FROM movies_cache LIMIT 1')
                 cached_time = results_query.fetchone() # movie list has 4 elements {title, year, id, cached_time}
                 if cached_time:
+                    # 3 of what? Use the Row factory and access by column name 
                     if current_time - cached_time[3] > MAX_AGE_SECONDS or cached_time == None:
                         conn.execute('DELETE FROM movies_cache') # results are old, clear them out - doesn't need the *, will just delete everything from this table
                     else:
@@ -33,6 +34,7 @@ class CacheDB():
                         movies_list = results_query.fetchall() # need to check what this returns
                         movie_object_list = []
                         for movie in movies_list:
+                            # more indexes! 
                             movie_object = {'title': movie[0], 'year': movie[1], 'id': movie[2]}
                             movie_object_list.append(movie_object)
                         return movie_object_list

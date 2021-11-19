@@ -12,7 +12,7 @@ tmdb_key = os.environ.get('TMDB_KEY')
 tmdb_url = f'https://api.themoviedb.org/3/movie/now_playing?api_key={tmdb_key}&language=en-US&page=1&region=US'
 
 
-""" This function will return a list movies from the api """
+""" return a list movies from the TMDB api """
 def get_movie_titles():
     
     try:
@@ -30,10 +30,12 @@ def get_movie_titles():
                 movie_cache_db.add_movie_list_cache(movie_list)
                 return movie_list
             else:
-                pass
+                pass  # do you need this ? what should you do if there's no data? 
+                # return None? Return an empty list? Raise an exception? 
 
 
     except Exception as e:
+        # handle cache errors separately to API errors 
         return None, 'Error getting list of movies from cache and/or TMDB API' + str(e)
 
 
@@ -45,9 +47,9 @@ def get_movie_data_from_api():
         return None, 'Error connecting to TMBD API because' + str(e)
 
 
-def add_titles_to_list(movie_data):
+def add_titles_to_list(movie_data):  # which list? Be specfic with names 
 
-    movie_list =[]  
+    movie_list = [] # be consistent with spacing   
     results = movie_data[0]['results']
     for movie in results:
         title = movie['title']
@@ -57,6 +59,5 @@ def add_titles_to_list(movie_data):
         tmdb_id = movie['id']
 
         movie_list.append({'title': title, 'year': release_year, 'id': tmdb_id})
-
 
     return movie_list
